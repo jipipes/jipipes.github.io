@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.x # 또는 .ruby-version 파일에 명시된 버전
+          ruby-version: 3.3 # 또는 .ruby-version 파일에 명시된 버전
 
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
