@@ -1,6 +1,12 @@
 <!-- The Side Bar -->
 
 <aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
+  {% if site.sidebar.sidebar_cover %}
+    <div
+      class="sidebar-cover"
+      style="background-image: url('{{ site.sidebar.sidebar_cover | relative_url }}'); width: 100%; height: 140px; background-size: cover; background-position: center;"
+    ></div>
+  {% endif %}
   <header class="profile-wrapper">
     <a href="{{ '/' | relative_url }}" id="avatar" class="rounded-circle">
       {%- if site.avatar != empty and site.avatar -%}
