@@ -105,7 +105,7 @@ sidebar:
   # The fixed width of sidebar.
   width: 260px # 기본값
   # The cover image displayed in sidebar.
-  sidebar_cover: /assets/img/background.jpg # 실제 이미지 파일 경로로 변경
+  sidebar_cover: /assets/img/background.jpg 
 
   # The aspect ratio of sidebar cover image (default: 2.6).
   # sidebar_cover_aspect: 2.6
