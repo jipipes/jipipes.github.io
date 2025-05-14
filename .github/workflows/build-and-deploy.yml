@@ -24,6 +24,9 @@ jobs:
       - name: Build with Jekyll
         run: bundle exec jekyll build --config _config.yml
 
+      - name: Add .nojekyll file
+        run: touch ./_site/.nojekyll
+
       - name: Upload artifacts
         uses: actions/upload-pages-artifact@v3
         with:
