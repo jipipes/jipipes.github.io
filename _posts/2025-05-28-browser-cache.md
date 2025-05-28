@@ -39,7 +39,8 @@ Expires: 0
 ```   
 &emsp; 정적 사이트의 경우 '.htaccess', 'vercel.json' 등으로 설정이 가능하다.   
 3. 배포 자동화 도구 사용   
-&nbsp; * &nbsp; Hugo, Jekyll, Next.js 처럼 정적 사이트 생성기들은 빌드시 자동으로 파일에 해시를 붙임   
+&nbsp; * &nbsp; Hugo, Jekyll, Next.js 처럼 정적 사이트 생성기들은 빌드시 자동으로 파일에 해시를 붙임    
+
 &emsp; 나의 경우 Jekyll기반이지만 Github pages는 정적 파일을 그대로 서빙하므로, CSS나 JS파일명이 바뀌지 않으면 브라우저가 예전 파일을 계속 캐시해서 불러온 것   
 &emsp; jekyll-assets 플러그인을 통해 파일 이름에 해시를 자동으로 붙여 해결하기로 한다.
 
