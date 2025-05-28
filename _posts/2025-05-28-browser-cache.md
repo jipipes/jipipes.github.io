@@ -27,11 +27,11 @@ last_modified_at: 2025-05-28
   
 따라서 해결방법은 다음과 같다   
 1. 파일명 또는 쿼리스트링 추가   
-&nbsp; * &nbsp; 파일명에 해시 자동 추가   
+* &nbsp; 파일명에 해시 자동 추가   
 &emsp; 변경될 때마다 다른 이름으로 인식되어 캐시를 무시하고 새로 로드되도록 함   
 &emsp; ex. 'image.css'를 'image.css?v=2' 처럼 파일 버전명 혹은 빌드시 'image.8a3f.css'처럼 파일명에 해시 자동 추가   
 2. 브라우저 캐시 무효화 설정   
-&nbsp; * &nbsp; 서버에서 HTTP 헤더 설정으로 캐시 무효화   
+* &nbsp; 서버에서 HTTP 헤더 설정으로 캐시 무효화   
 ```http
 Cache-Control: no-cache, no-store, must-revalidate
 Pragma: no-cache
@@ -39,7 +39,7 @@ Expires: 0
 ```   
 &emsp; 정적 사이트의 경우 '.htaccess', 'vercel.json' 등으로 설정이 가능하다.   
 3. 배포 자동화 도구 사용   
-&nbsp; * &nbsp; Hugo, Jekyll, Next.js 처럼 정적 사이트 생성기들은 빌드시 자동으로 파일에 해시를 붙임    
+* &nbsp; Hugo, Jekyll, Next.js 처럼 정적 사이트 생성기들은 빌드시 자동으로 파일에 해시를 붙임    
 
 &emsp; 나의 경우 Jekyll기반이지만 Github pages는 정적 파일을 그대로 서빙하므로, CSS나 JS파일명이 바뀌지 않으면 브라우저가 예전 파일을 계속 캐시해서 불러온 것   
 &emsp; jekyll-assets 플러그인을 통해 파일 이름에 해시를 자동으로 붙여 해결하기로 한다.
