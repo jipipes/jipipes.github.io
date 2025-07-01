@@ -5,11 +5,14 @@
 
 /* 댓글 섹션 가로폭 조절 */
 .utterances {
-    max-width: 100% !important; /* 부모 요소의 100%를 넘지 않도록 설정 */
+    max-width: 760px !important; /* 부모 요소의 100%를 넘지 않도록 설정 */
     margin: 0 auto !important; /* 가운데 정렬  */
+    padding-left: 1rem; /* 좌우 여백 추가 (콘텐츠가 너무 붙지 않게) */
+    padding-right: 1rem;
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
 }
 .utterances-frame {
-    max-width: 100% !important; /* iframe 자체의 너비도 제한 */
+    max-width: 100% /* iframe 자체의 너비도 제한 */
 }
 /* 만약 특정 컨테이너 안에 있다면 해당 컨테이너 너비에 맞추기 */
 /* 예: .post-content와 같은 클래스가 댓글을 감싸고 있다면 */
