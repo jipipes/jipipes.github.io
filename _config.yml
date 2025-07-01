@@ -16,7 +16,10 @@ timezone: KST
 
 title: Soojin's Engineering Journey # the main title
 
-tagline: 문제를 탐구하고 도전하는 엔지니어 지망생 # it will display as the subtitle
+tagline: 문제를 탐구하고 도전하는 엔지니어 지망생  
+aspiring engineer who explores and challenges problems.  
+問題を探求し、挑戦するエンジニア志望者です。
+ # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
