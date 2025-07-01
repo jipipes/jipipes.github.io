@@ -1,11 +1,11 @@
 ---
+layout: post
 title: "[DE] The Data Engineering Toolkit"
-excerpt: 
 
 categories:
     - Data_Engineering
 tags:
-    - [DE, Tools]
+    - [Data_Engineering, Tools]
 
 toc: true
 toc_sticky: true
