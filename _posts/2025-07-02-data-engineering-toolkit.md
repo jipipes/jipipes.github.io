@@ -24,8 +24,7 @@ The Data Engineering Toolkit is a curated directory of tools and technologies us
 
 You can find the toolkit here: [Data Engineering Toolkit](https://www.ssp.sh/brain/data-engineering-toolkit/)
 
-The creator also wrote an excellent blog post explaining the philosophy and structure behind it, which is a highly recommended read:
-- [Blog Post: Announcing the Data Engineering Toolkit](https://www.ssp.sh/blog/data-engineering-toolkit/)
+The creator also wrote an excellent blog post explaining the philosophy and structure behind it, which is a highly recommended read: [Blog Post: Announcing the Data Engineering Toolkit](https://www.ssp.sh/blog/data-engineering-toolkit/)
 
 ### Why It's So Useful
 
