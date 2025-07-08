@@ -14,8 +14,6 @@ date: 2025-07-02
 last_modified_at: 2025-07-02
 ---
 
-## The Data Engineering Toolkit 🛠️
-
 Recently, I stumbled upon a fantastic Reddit post that introduced "The Data Engineering Toolkit," and it's too good not to share. This post is also a personal bookmark for me to easily reference this amazing collection.
 
 ### What is The Data Engineering Toolkit?
