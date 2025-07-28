@@ -4,8 +4,8 @@ excerpt: 원인이 되는 브라우저 캐시에 대하여
 
 categories:
     - error
-tags:
-    - [error, web]
+# tags:
+#     - [error, web]
 
 toc: true
 toc_sticky: true

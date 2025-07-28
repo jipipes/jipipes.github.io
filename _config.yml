@@ -6,7 +6,7 @@ theme: jekyll-theme-chirpy
 # The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
 # If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
 # otherwise, the layout language will use the default value of 'en'.
-lang: kr
+lang: en
 
 # Change to your timezone › https://kevinnovak.github.io/Time-Zone-Picker
 timezone: KST
@@ -14,9 +14,9 @@ timezone: KST
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Haru's Engineering Journey # the main title
+title: The Data Pipe # the main title
 
-tagline: 문제를 탐구하고 도전하는 엔지니어 지망생<br>Aspiring engineer who explores and challenges problems.<br>問題を探求し、挑戦するエンジニア志望者です。
+tagline: **Building pipelines, structuring data, and delivering insight.** <br> _Early-stage data engineer focused on automation, ETL, and cloud infra._
  # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
@@ -99,14 +99,14 @@ theme_mode: light # [light | dark]
 # cdn: "https://chirpy-img.netlify.app"
 
 # the avatar on sidebar, support local or CORS resources
-avatar: /assets/img/profile.jpg
+avatar: /assets/img/mixtape.jpg
 
 sidebar:
   position: left # 또는 right
   # The fixed width of sidebar.
   width: 260px # 기본값
   # The cover image displayed in sidebar.
-  sidebar_cover: /assets/img/background.jpg 
+  sidebar_cover: /assets/img/background2.jpg 
 
   # The aspect ratio of sidebar cover image (default: 2.6).
   # sidebar_cover_aspect: 2.6
@@ -228,11 +228,11 @@ exclude:
   - "package*.json"
 
 jekyll-archives:
-  enabled: [categories, tags]
-  layouts:
-    tag: tag
+  enabled: [categories]
+  # layouts:
+  #   tag: tag
   permalinks:
-    tag: /tags/:name/
+    # tag: /tags/:name/
     category: /categories/:name/
 
 include:

@@ -57,9 +57,9 @@ post:
   updated: Posodobljeno #Updated
   words: besede #words
   pageview_measure: ogledi #views
-  read_time:
-    unit: min
-    prompt: beri #read
+  #read_time:
+    #unit: min
+    #prompt: beri #read
   relate_posts: Nadaljnje branje #Further Reading
   share: Deli #Share
   button:

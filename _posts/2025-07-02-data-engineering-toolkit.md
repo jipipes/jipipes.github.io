@@ -4,8 +4,8 @@ title: "[DE] The Data Engineering Toolkit"
 
 categories:
     - data-engineering
-tags:
-    - [data_engineering, tools]
+# tags:
+#     - [data_engineering, tools]
 
 toc: true
 toc_sticky: true
