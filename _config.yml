@@ -16,7 +16,7 @@ timezone: KST
 
 title: The Data Pipe # the main title
 
-tagline: **Building pipelines, structuring data, and delivering insight.** <br> _Early-stage data engineer focused on automation, ETL, and cloud infra._
+tagline: "**Building pipelines, structuring data, and delivering insight.** <br> _Early-stage data engineer focused on automation, ETL, and cloud infra._"
  # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
