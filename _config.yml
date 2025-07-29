@@ -16,7 +16,7 @@ timezone: KST
 
 title: The Data Pipe # the main title
 
-tagline: "**Building pipelines, structuring data, and delivering insight.** <br> _Early-stage data engineer focused on automation, ETL, and cloud infra._"
+tagline: "<blockquote>Building pipelines, structuring data, and delivering insight.</blockquote> <br><em> Early-stage data engineer focused on automation, ETL, and cloud infra.</em>"
  # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
@@ -106,7 +106,7 @@ sidebar:
   # The fixed width of sidebar.
   width: 260px # 기본값
   # The cover image displayed in sidebar.
-  sidebar_cover: /assets/img/background2.jpg 
+  sidebar_cover: /assets/img/background.jpg 
 
   # The aspect ratio of sidebar cover image (default: 2.6).
   # sidebar_cover_aspect: 2.6
@@ -114,7 +114,6 @@ sidebar:
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
 social_preview_image: # string, local or CORS resources
-
 # boolean type, the global switch for TOC in posts.
 toc: true
 
