@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[DE] The Data Engineering Toolkit"
+title: "The Data Engineering Toolkit"
 
 categories:
-    - data-engineering
+    - Daily Log
 # tags:
 #     - [data_engineering, tools]
 
