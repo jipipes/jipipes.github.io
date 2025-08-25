@@ -3,7 +3,7 @@ layout: post
 title: "The Data Engineering Toolkit"
 
 categories:
-    - Daily Log
+    - Concepts
 # tags:
 #     - [data_engineering, tools]
 
