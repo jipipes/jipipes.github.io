@@ -3,7 +3,7 @@ layout: post
 title: "DE101 Setup Error #1: When Docker, PySpark, and Airflow All Gang Up On You"
 categories:
     - Problem Solving
-date: 2025-08-22
+date: 2025-08-26
 ---
 
 ### TL;DR Takeaway:
