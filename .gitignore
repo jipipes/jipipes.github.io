@@ -13,7 +13,7 @@ _site
 
 # NPM dependencies
 node_modules
-package-lock.json
+# package-lock.json 25.08.27 오류 해결을 위해 삭제
 
 # IDE configurations
 .idea
