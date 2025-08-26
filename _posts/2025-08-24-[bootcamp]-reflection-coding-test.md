@@ -1,12 +1,10 @@
 ---
 layout: post
-title: "[Bootcamp] Reflctions on a Coding Test"
+title: "[Bootcamp] Reflctions on a Bootcamp Coding Test"
 categories:
     - Bootcamp
 date: 2025-08-24
 ---
-
-## [Reflections on a Bootcamp Coding Test]
 
 I recently took an online coding assessment as part of a bootcamp application.  
 It ran between the 22nd and 24th via a link shared by email.
@@ -72,8 +70,8 @@ I plan to study SQL more seriously from now on—via:
 
 ## Final Thoughts
 
-I don’t know yet whether I passed the test.  
-But either way, I’m grateful for the experience because it exposed the gaps in my process.
+I don’t know yet whether I passed.  
+But, I’m grateful for the experience because it exposed the gaps in my process.
 
 This test wasn’t just about coding—it reminded me of how important it is to think clearly under pressure, understand problem requirements, and write robust, testable code.
 
