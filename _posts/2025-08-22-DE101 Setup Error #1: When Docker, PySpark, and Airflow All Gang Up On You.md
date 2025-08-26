@@ -3,7 +3,7 @@ layout: post
 title: "DE101 Setup Error #1: When Docker, PySpark, and Airflow All Gang Up On You"
 categories:
     - Problem Solving
-date: 2025-08-26
+date: 2025-08-22
 ---
 
 ### TL;DR Takeaway:
@@ -32,7 +32,7 @@ Development Environment:
 
 ### 1. Inspecting Airflow Logs & Initial Diagnosis
 The issue occurred when a PySpark task in an Airflow DAG failed with a JAVA_GATEWAY_EXITED error. I began by troubleshooting the Airflow error by examining the logs.
-![Airflow DAG failure log screen](/assets/img/post-2025-08-22-0.png)
+![Airflow DAG failure log screen](/assets/img/post-2025-08-22-0.jpg)
 
 
 The core error message was:
@@ -49,7 +49,7 @@ First, I considered that since the environment was pre-built for the course, the
 I wondered if it was due to a lack of resources. I checked my Docker settings and found the Memory limit was set to 4GB. 
 I wasn’t sure if this was the problem but since it was a minimal setting, I increased it to 8GB.
 
-![Docker resource configuration view](/assets/img/post-2025-08-22-1.png)
+![Docker resource configuration view](/assets/img/post-2025-08-22-1.jpg)
 
 However, the DAG still failed with the same error.
 
@@ -81,7 +81,7 @@ Then, another error occurred:
 
 This was a port conflict. I knew I needed to find the program using that port, so I used lsof -i :8080 to find the process ID (PID) and then terminated it with kill -9.
 But yet another error appeared. At this point, I started to wonder if I was doing something fundamentally wrong. Docker was running, but it wasn't responding. I restarted the Docker engine and the port conflict error reappeared. I realized my previous fix had created an endless loop of errors.
-![Docker error screen](/assets/img/post-2025-08-22-2.png)
+![Docker error screen](/assets/img/post-2025-08-22-2.jpg)
 
 ### 7. Facing a Cycle of Port Conflict & Restart
 I rethought my approach. Instead of reckless killing of processes, I decided to simply change ports. I updated docker-compose.yml from:
@@ -96,7 +96,7 @@ to
 Still, Docker complained that port 8081 was also in use. I checked the port allocation using:
 >docker ps
 Turns out Airflow was binding both ports.
-![docker ps](/assets/img/post-2025-08-22-3.png)
+![docker ps](/assets/img/post-2025-08-22-3.jpg)
 
 ### 8. Final Fix
 I iterated port changes until finding a free one. After trying 10002:10000, the docker-compose up -d command finally worked without port-binding errors. Yet, frustratingly, the DAGs still failed.
