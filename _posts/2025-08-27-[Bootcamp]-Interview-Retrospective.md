@@ -45,9 +45,12 @@ To improve, I think I need:
 
 These were straightforward.
 
+---
+
 **2. Why are you interested in data engineering?**
 
 I answered with a personal story:
+
 I was originally a student in International Economics & Law. 
 While preparing for the CPA exam, I noticed that many accounting firms preferred candidates who knew Python. That intrigued me, and I attended a talk on data analytics in accounting firms. It opened my eyes to the world of data—and I thought it was a good fit for me.
 
@@ -67,6 +70,7 @@ I should’ve:
 **3. What do you hope to gain from this bootcamp?**
 
 I answered honestly:
+
 I don’t often get the chance to discuss ideas or share thoughts with others about DE. 
 I want to talk freely with mentors and peers who are also aiming for careers in this field.
 
