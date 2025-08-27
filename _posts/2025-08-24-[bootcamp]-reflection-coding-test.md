@@ -64,7 +64,7 @@ Either way, if I say I want to be a data engineer, then **weak SQL skills are li
 
 I plan to study SQL more seriously from now on—via:
 - Programmers SQL practice sets and online courses 
-- The book “SQL 300 Problems”
+- The book “SQL 200 Problems”
 
 ---
 
