@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Bootcamp] Reflctions on a Bootcamp Coding Test"
+title: "Bootcamp Coding Test Retrospective: Approach, Mistakes, and Next Steps"
 categories:
     - Bootcamp
 date: 2025-08-24

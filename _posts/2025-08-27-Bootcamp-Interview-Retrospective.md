@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Bootcamp] Interview Retrospective – I Wasn’t as Ready as I Thought"
+title: "Bootcamp Interview Retrospective – I Wasn’t as Ready as I Thought"
 categories:
     - Bootcamp
 date: 2025-08-27
