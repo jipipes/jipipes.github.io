@@ -3,6 +3,9 @@
 @forward 'layout';
 @forward 'pages';
 
+/* Custom font size adjustments */
+@import '../assets/css/custom-font-size.scss';
+
 /* 댓글 섹션 가로폭 조절 */
 .utterances {
     max-width: 760px !important; /* 부모 요소의 100%를 넘지 않도록 설정 */

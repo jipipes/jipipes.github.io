@@ -10,7 +10,7 @@ This week, our first official project team was formed in the bootcamp.
 
 The project hasn’t started yet, but I already ran into something worth thinking about—not a team conflict, but a **personal challenge** I feel the need to work through.
 
-> How do I work well with a team leader who prioritizes efficiency over discussion?
+| **How do I work well with a team leader who prioritizes efficiency over discussion?**
 
 
 Our current team leader has a style that leans toward quick decision-making and minimal discussion. Rather than gathering everyone's input, they tend to push tasks forward swiftly and with little room for debate.
@@ -23,7 +23,7 @@ Through this, I realized that I value environments where collaboration takes pri
 
 So the question became:
 
-> What attitude should I take as a team member in this situation?
+| **What attitude should I take as a team member in this situation?**
 
 
 This is just a short-term project and not the time to force a total culture shift. I also believe that if I wanted to set the tone or lead differently, I should have stepped up as team lead. Since I didn’t, I feel a responsibility to follow the current leader’s direction

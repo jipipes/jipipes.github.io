@@ -226,13 +226,14 @@ exclude:
   - "*.config.js"
   - "package*.json"
 
-jekyll-archives:
-  enabled: [categories]
-  # layouts:
-  #   tag: tag
-  permalinks:
-    # tag: /tags/:name/
-    category: /categories/:name/
+# jekyll-archives is not supported on GitHub Pages
+# jekyll-archives:
+#   enabled: [categories, tags]
+#   layouts:
+#     tag: tag
+#   permalinks:
+#     tag: /tags/:name/
+#     category: /categories/:name/
 
 include:
   - assets/lib/fontawesome-free
