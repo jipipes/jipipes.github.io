@@ -4,54 +4,133 @@
 
 #post-list {
   margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
 
   @include bp.lg {
     margin-top: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+  }
+
+  @include bp.xl {
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 3rem;
   }
 
   .card-wrapper {
     &:hover {
       text-decoration: none;
+      transform: translateY(-2px);
+      transition: transform 0.2s ease;
     }
 
     &:not(:last-child) {
-      margin-bottom: 1.25rem;
+      margin-bottom: 0;
+    }
+
+    .post-preview {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      text-decoration: none;
+      color: inherit;
+
+      &:hover {
+        text-decoration: none;
+        color: inherit;
+      }
     }
   }
 
   .card {
-    border: 0;
-    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+
+    &:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      transform: translateY(-4px);
+    }
 
     %img-radius {
-      border-radius: v.$radius-lg v.$radius-lg 0 0;
-
-      @include bp.md {
-        border-radius: 0 v.$radius-lg v.$radius-lg 0;
-      }
+      border-radius: 16px 16px 0 0;
     }
 
     .preview-img {
       @extend %img-radius;
+      overflow: hidden;
+      position: relative;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       img {
         @extend %img-radius;
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        background: #f8f9fa;
       }
+
+      &:hover img {
+        transform: scale(1.05);
+      }
+
+      /* 로딩 상태 스타일 */
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        border: 3px solid #e9ecef;
+        border-top: 3px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        z-index: 1;
+      }
+
+      img:not([src=""]) + &::before {
+        display: none;
+      }
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
 
     .card-body {
       height: 100%;
-      padding: 1rem;
-
-      @include bp.md {
-        padding: 1.75rem 1.75rem 1.25rem;
-      }
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      background: #ffffff;
 
       .card-title {
         @extend %text-clip;
 
         color: var(--heading-color) !important;
-        font-size: 1.25rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+        display: block;
+        letter-spacing: -0.02em;
       }
 
       %muted {
@@ -59,44 +138,45 @@
       }
 
       .card-text {
-        @include bp.md {
-          display: inherit !important;
-        }
+        flex-grow: 1;
+        margin-bottom: 1.25rem;
 
         &.content {
-          @extend %muted;
+          color: var(--text-muted-color) !important;
 
           p {
             @extend %text-clip;
-
-            line-height: 1.5;
+            line-height: 1.6;
             margin: 0;
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: var(--text-muted-color) !important;
+            font-weight: 400;
           }
         }
       }
 
       .post-meta {
-        @extend %muted;
+        color: var(--text-muted-color) !important;
+        font-size: 0.8rem;
+        margin-top: auto;
 
         i {
           &:not(:first-child) {
-            margin-left: 1.5rem;
-
-            @include bp.md {
-              margin-left: 1.75rem;
-            }
+            margin-left: 1rem;
           }
         }
 
         em {
           @extend %normal-font-style;
-
           color: inherit;
         }
 
         > div:first-child {
           display: block;
-
           @extend %text-ellipsis;
         }
       }

@@ -16,7 +16,7 @@ timezone: KST
 
 title: The Data Pipe # the main title
 
-tagline: "<blockquote>Building pipelines, structuring data, and delivering insight.</blockquote> <br><em> Early-stage data engineer focused on automation, ETL, and cloud infra.</em>"
+tagline: "<blockquote>Building pipelines, structuring data, and delivering insights through automation, ETL, and cloud infrastructure.</blockquote>"
  # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
@@ -99,7 +99,7 @@ theme_mode: light # [light | dark]
 # cdn: "https://chirpy-img.netlify.app"
 
 # the avatar on sidebar, support local or CORS resources
-avatar: /assets/img/mixtape.jpg
+avatar: /assets/img/blackprofile.jpg
 
 sidebar:
   position: left # 또는 right
