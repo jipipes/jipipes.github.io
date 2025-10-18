@@ -15,5 +15,19 @@ class SidebarUtil {
 }
 
 export function initSidebar() {
-  $trigger.onclick = $mask.onclick = () => SidebarUtil.toggle();
+  if ($trigger) {
+    $trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      SidebarUtil.toggle();
+    });
+  }
+  
+  if ($mask) {
+    $mask.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      SidebarUtil.toggle();
+    });
+  }
 }

@@ -74,16 +74,24 @@ function isMobileView() {
 }
 
 export function displaySearch() {
-  btnSearchTrigger.addEventListener('click', () => {
-    MobileSearchBar.on();
-    ResultSwitch.on();
-    input.focus();
-  });
+  if (btnSearchTrigger) {
+    btnSearchTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      MobileSearchBar.on();
+      ResultSwitch.on();
+      input.focus();
+    });
+  }
 
-  btnCancel.addEventListener('click', () => {
-    MobileSearchBar.off();
-    ResultSwitch.off();
-  });
+  if (btnCancel) {
+    btnCancel.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      MobileSearchBar.off();
+      ResultSwitch.off();
+    });
+  }
 
   input.addEventListener('focus', () => {
     search.classList.add(FOCUS);
