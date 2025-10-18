@@ -4,7 +4,7 @@
 @forward 'pages';
 
 /* Custom font size adjustments */
-@import '../assets/css/custom-font-size.scss';
+@import 'custom-font-size';
 
 /* 댓글 섹션 가로폭 조절 */
 .utterances {
