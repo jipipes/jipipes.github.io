@@ -75,7 +75,17 @@ function isMobileView() {
 
 export function displaySearch() {
   if (btnSearchTrigger) {
+    // Click event
     btnSearchTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      MobileSearchBar.on();
+      ResultSwitch.on();
+      input.focus();
+    });
+    
+    // Touch event for mobile
+    btnSearchTrigger.addEventListener('touchstart', (e) => {
       e.preventDefault();
       e.stopPropagation();
       MobileSearchBar.on();
@@ -85,7 +95,16 @@ export function displaySearch() {
   }
 
   if (btnCancel) {
+    // Click event
     btnCancel.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      MobileSearchBar.off();
+      ResultSwitch.off();
+    });
+    
+    // Touch event for mobile
+    btnCancel.addEventListener('touchstart', (e) => {
       e.preventDefault();
       e.stopPropagation();
       MobileSearchBar.off();

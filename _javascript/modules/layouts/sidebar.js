@@ -16,7 +16,15 @@ class SidebarUtil {
 
 export function initSidebar() {
   if ($trigger) {
+    // Click event
     $trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      SidebarUtil.toggle();
+    });
+    
+    // Touch event for mobile
+    $trigger.addEventListener('touchstart', (e) => {
       e.preventDefault();
       e.stopPropagation();
       SidebarUtil.toggle();
@@ -24,7 +32,15 @@ export function initSidebar() {
   }
   
   if ($mask) {
+    // Click event
     $mask.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      SidebarUtil.toggle();
+    });
+    
+    // Touch event for mobile
+    $mask.addEventListener('touchstart', (e) => {
       e.preventDefault();
       e.stopPropagation();
       SidebarUtil.toggle();

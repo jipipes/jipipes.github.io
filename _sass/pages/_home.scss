@@ -69,7 +69,7 @@
       @extend %img-radius;
       overflow: hidden;
       position: relative;
-      background: #f8f9fa;
+      background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -80,7 +80,24 @@
         height: 200px;
         object-fit: cover;
         transition: transform 0.3s ease;
-        background: #f8f9fa;
+        background: transparent;
+        opacity: 1 !important;
+        animation: none !important;
+        filter: none !important;
+        transform: none !important;
+        visibility: visible !important;
+        display: block !important;
+      }
+      
+      img[src] {
+        opacity: 1 !important;
+        animation: none !important;
+        visibility: visible !important;
+        display: block !important;
+      }
+      
+      img:not([src]) {
+        display: none !important;
       }
 
       &:hover img {

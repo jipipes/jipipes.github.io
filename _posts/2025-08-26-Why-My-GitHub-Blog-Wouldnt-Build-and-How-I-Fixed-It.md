@@ -13,7 +13,7 @@ My GitHub Pages blog wasn't building due to a Liquid syntax error in a post titl
 When I tried to build my Jekyll blog locally, I encountered this error:
 
 ```
-Liquid Warning: Liquid syntax error (line 83): Expected end_of_string but found open_round in "{{ hashFiles('**/package-lock.json') }}" in /home/runner/work/jipipes.github.io/jipipes.github.io/_posts/2025-08-26-Why My GitHub Blog Wouldn't Build — and How I Fixed It.md
+Liquid Warning: Liquid syntax error (line 83): Expected end_of_string but found open_round in "hashFiles('**/package-lock.json')" in /home/runner/work/jipipes.github.io/jipipes.github.io/_posts/2025-08-26-Why My GitHub Blog Wouldn't Build — and How I Fixed It.md
 ```
 
 ### Root Cause
