@@ -1,103 +1,103 @@
 /* Custom font size adjustments for all posts */
 
-/* Increase base font size */
+/* Increase base font size moderately */
 main {
-  font-size: 20px !important;
-  line-height: 1.8 !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
 }
 
-/* Increase paragraph font size */
+/* Increase paragraph font size moderately */
 main p {
-  font-size: 20px !important;
-  line-height: 1.8 !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
 }
 
-/* Increase heading sizes */
+/* Increase heading sizes moderately */
 main h1 {
-  font-size: 2.5rem !important;
+  font-size: 2.2rem !important;
 }
 
 main h2 {
-  font-size: 2.1rem !important;
-}
-
-main h3 {
   font-size: 1.8rem !important;
 }
 
+main h3 {
+  font-size: 1.5rem !important;
+}
+
 main h4 {
-  font-size: 1.6rem !important;
+  font-size: 1.3rem !important;
 }
 
 main h5 {
-  font-size: 1.4rem !important;
+  font-size: 1.2rem !important;
 }
 
-/* Increase list item font size */
+/* Increase list item font size moderately */
 main li {
-  font-size: 20px !important;
-  line-height: 1.8 !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
 }
 
-/* Increase blockquote font size */
+/* Increase blockquote font size moderately */
 main blockquote {
-  font-size: 20px !important;
-  line-height: 1.8 !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
 }
 
-/* Increase table font size */
+/* Increase table font size moderately */
 main table {
-  font-size: 18px !important;
+  font-size: 15px !important;
 }
 
 main th,
 main td {
-  font-size: 18px !important;
+  font-size: 15px !important;
 }
 
-/* Increase code font size */
+/* Increase code font size moderately */
 main code {
-  font-size: 18px !important;
+  font-size: 15px !important;
 }
 
 main pre {
-  font-size: 18px !important;
+  font-size: 15px !important;
 }
 
-/* Increase details/summary font size */
+/* Increase details/summary font size moderately */
 main details {
-  font-size: 20px !important;
+  font-size: 16px !important;
 }
 
 main summary {
-  font-size: 20px !important;
+  font-size: 16px !important;
   font-weight: 600 !important;
 }
 
-/* Adjust home page post titles */
+/* Adjust home page post titles moderately */
 .post-preview h1 {
-  font-size: 1.8rem !important;
+  font-size: 1.6rem !important;
 }
 
 .post-preview h2 {
-  font-size: 1.6rem !important;
+  font-size: 1.4rem !important;
 }
 
 .post-preview h3 {
-  font-size: 1.4rem !important;
+  font-size: 1.2rem !important;
 }
 
-/* Adjust card titles in home page */
+/* Adjust card titles in home page moderately */
 .card h1 {
-  font-size: 1.8rem !important;
-}
-
-.card h2 {
   font-size: 1.6rem !important;
 }
 
-.card h3 {
+.card h2 {
   font-size: 1.4rem !important;
+}
+
+.card h3 {
+  font-size: 1.2rem !important;
 }
 
 /* Make horizontal rules more visible but not too dark */
@@ -108,163 +108,63 @@ main hr {
   opacity: 1 !important;
 }
 
-/* Increase sidebar font sizes */
+/* Increase sidebar font sizes moderately */
 .sidebar {
-  font-size: 20px !important;
+  font-size: 16px !important;
 }
 
 .sidebar .site-title {
-  font-size: 2.2rem !important;
+  font-size: 1.8rem !important;
 }
 
 .sidebar .site-subtitle {
-  font-size: 1.4rem !important;
+  font-size: 1.1rem !important;
 }
 
 .sidebar .nav-link {
-  font-size: 20px !important;
-  padding: 0.7rem 0 !important;
-  line-height: 1.6 !important;
+  font-size: 16px !important;
+  padding: 0.6rem 0 !important;
+  line-height: 1.5 !important;
 }
 
 .sidebar .nav-link i {
-  font-size: 20px !important;
+  font-size: 16px !important;
 }
 
 .sidebar .sidebar-bottom {
-  font-size: 18px !important;
-}
-
-.sidebar .tagline {
-  font-size: 20px !important;
-}
-
-.sidebar .site-title a {
-  font-size: 2.2rem !important;
-}
-
-.sidebar .site-subtitle p {
-  font-size: 1.4rem !important;
-}
-
-/* Increase panel font sizes */
-.panel {
-  font-size: 20px !important;
-}
-
-.panel h2 {
-  font-size: 1.6rem !important;
-}
-
-.panel .post-tag {
-  font-size: 18px !important;
-}
-
-/* Increase sidebar text elements */
-.sidebar .text-muted {
-  font-size: 18px !important;
-}
-
-.sidebar .small {
-  font-size: 16px !important;
-}
-
-/* Balanced sidebar font sizing */
-#sidebar {
-  font-size: 18px !important;
-}
-
-#sidebar * {
-  font-size: 18px !important;
-}
-
-#sidebar .site-title {
-  font-size: 2.2rem !important;
-}
-
-#sidebar .site-subtitle {
-  font-size: 1.3rem !important;
-}
-
-#sidebar .site-subtitle p {
-  font-size: 1.3rem !important;
-}
-
-#sidebar .site-title a {
-  font-size: 2.2rem !important;
-}
-
-#sidebar .nav-link {
-  font-size: 18px !important;
-  padding: 0.6rem 0 !important;
-  line-height: 1.6 !important;
-}
-
-#sidebar .nav-link i {
-  font-size: 18px !important;
-}
-
-#sidebar .sidebar-bottom {
-  font-size: 16px !important;
-}
-
-#sidebar .tagline {
-  font-size: 18px !important;
-}
-
-#sidebar .text-muted {
-  font-size: 16px !important;
-}
-
-#sidebar .small {
   font-size: 14px !important;
 }
 
-/* Panel sizing */
-#sidebar .panel {
-  font-size: 18px !important;
-}
-
-#sidebar .panel h2 {
-  font-size: 1.4rem !important;
-}
-
-#sidebar .panel .post-tag {
+.sidebar .tagline {
   font-size: 16px !important;
 }
 
-/* Force all sidebar elements */
-.sidebar,
-.sidebar *,
-.sidebar a,
-.sidebar span,
-.sidebar div,
-.sidebar p,
-.sidebar h1,
-.sidebar h2,
-.sidebar h3,
-.sidebar h4,
-.sidebar h5,
-.sidebar h6 {
-  font-size: 18px !important;
-}
-
-.sidebar .site-title,
 .sidebar .site-title a {
-  font-size: 2.2rem !important;
+  font-size: 1.8rem !important;
 }
 
-.sidebar .site-subtitle,
 .sidebar .site-subtitle p {
-  font-size: 1.3rem !important;
+  font-size: 1.1rem !important;
 }
 
-.sidebar .nav-link {
-  font-size: 18px !important;
-  padding: 0.6rem 0 !important;
-  line-height: 1.6 !important;
+/* Increase panel font sizes moderately */
+.panel {
+  font-size: 16px !important;
 }
 
-.sidebar .nav-link i {
-  font-size: 18px !important;
+.panel h2 {
+  font-size: 1.4rem !important;
+}
+
+.panel .post-tag {
+  font-size: 14px !important;
+}
+
+/* Increase sidebar text elements moderately */
+.sidebar .text-muted {
+  font-size: 14px !important;
+}
+
+.sidebar .small {
+  font-size: 13px !important;
 }
