@@ -87,6 +87,8 @@
         transform: none !important;
         visibility: visible !important;
         display: block !important;
+        position: relative !important;
+        z-index: 1 !important;
       }
       
       img[src] {
@@ -94,10 +96,25 @@
         animation: none !important;
         visibility: visible !important;
         display: block !important;
+        position: relative !important;
+        z-index: 1 !important;
       }
       
       img:not([src]) {
         display: none !important;
+      }
+      
+      /* 로딩 애니메이션 완전 제거 */
+      img::before,
+      img::after {
+        display: none !important;
+        content: none !important;
+      }
+      
+      .preview-img::before,
+      .preview-img::after {
+        display: none !important;
+        content: none !important;
       }
 
       &:hover img {
