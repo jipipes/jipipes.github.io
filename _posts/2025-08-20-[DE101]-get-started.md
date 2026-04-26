@@ -3,6 +3,9 @@ layout: post
 title: "[DE101] get started"
 categories:
     - Concepts
+tags:
+    - data-engineering
+    - learning
 date: 2025-08-20
 ---
 

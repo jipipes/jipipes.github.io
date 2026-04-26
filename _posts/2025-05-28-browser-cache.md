@@ -4,8 +4,10 @@ excerpt: 원인이 되는 브라우저 캐시에 대하여
 
 categories:
     - Problem Solving
-# tags:
-#     - [error, web]
+tags:
+    - debugging
+    - browser
+    - cache
 
 toc: true
 toc_sticky: true

@@ -3,6 +3,9 @@ layout: post
 title: "Bootcamp Interview Retrospective – I Wasn’t as Ready as I Thought"
 categories:
     - Bootcamp
+tags:
+    - interview
+    - retrospective
 date: 2025-08-27
 ---
 

@@ -3,6 +3,9 @@ layout: post
 title: "Why My GitHub Blog Wouldn't Build — and How I Fixed It"
 categories:
     - Problem Solving
+tags:
+    - github-pages
+    - debugging
 date: 2025-08-26
 ---
 

@@ -3,6 +3,9 @@ layout: post
 title: "Bootcamp Coding Test Retrospective: Approach, Mistakes, and Next Steps"
 categories:
     - Bootcamp
+tags:
+    - coding-test
+    - retrospective
 date: 2025-08-24
 ---
 

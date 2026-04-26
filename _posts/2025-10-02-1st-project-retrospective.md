@@ -3,6 +3,10 @@ layout: post
 title: "1st Project Retrospective -Beyond Code"
 categories:
     - Bootcamp
+tags:
+    - project
+    - retrospective
+    - frontend
 date: 2025-10-02
 description: "A reflection on my first team project — learning that collaboration matters more than perfect code."
 ---

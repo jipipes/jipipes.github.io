@@ -4,8 +4,10 @@ title: "The Data Engineering Toolkit"
 
 categories:
     - Concepts
-# tags:
-#     - [data_engineering, tools]
+tags:
+    - data-engineering
+    - tools
+    - resources
 
 toc: true
 toc_sticky: true

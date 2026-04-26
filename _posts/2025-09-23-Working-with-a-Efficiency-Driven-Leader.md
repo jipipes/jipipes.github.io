@@ -3,6 +3,9 @@ layout: post
 title: "Soft Skill Actions: Working with a 'Efficiency-Driven' Leader."
 categories:
     - Bootcamp
+tags:
+    - soft-skills
+    - teamwork
 date: 2025-09-23
 ---
 

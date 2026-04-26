@@ -3,6 +3,11 @@ layout: post
 title: "Airflow + PySpark on Docker: Debugging JAVA_GATEWAY_EXITED (DE101 Setup Error #1)"
 categories:
     - Problem Solving
+tags:
+    - airflow
+    - pyspark
+    - docker
+    - debugging
 date: 2025-08-22
 ---
 

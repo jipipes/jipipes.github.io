@@ -3,6 +3,9 @@ layout: post
 title: "Part2: What you actuall need to learn to pass coding tests"
 categories:
     - Bootcamp
+tags:
+    - coding-test
+    - algorithms
 date: 2025-09-24
 ---
 
