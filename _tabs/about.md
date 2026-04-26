@@ -16,11 +16,6 @@ I'm a data engineer in training, currently building hands-on experience across t
 - **Cloud & Infra**: Docker, GitHub Actions
 - **Languages**: Python, SQL
 
-## Projects
-
-**[ML Threat Detection System](https://github.com/jipipes/ml-threat-detection)**
-Built an ML-based network threat detection system using the UNSW-NB15 dataset. Trained an XGBoost classifier (F1: 0.922) and an Isolation Forest for anomaly detection, then served predictions via a FastAPI endpoint with automated threat summaries powered by the Gemini API.
-
 ## About This Blog
 
 **The Data Pipe** is where I document what I build, break, and learn — debugging sessions, project retrospectives, and concepts I want to understand deeply enough to explain clearly.
