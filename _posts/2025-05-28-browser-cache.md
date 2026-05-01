@@ -6,7 +6,6 @@ categories:
     - Problem Solving
 tags:
     - debugging
-    - browser
     - cache
 
 toc: true
