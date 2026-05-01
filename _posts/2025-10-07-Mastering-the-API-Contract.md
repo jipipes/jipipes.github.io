@@ -6,7 +6,6 @@ categories:
 tags:
     - api
     - project
-    - frontend
 date: 2025-10-07
 description: "A reflection on learning to design and negotiate an API specification — from frontend confusion to true collaboration with backend developers."
 ---

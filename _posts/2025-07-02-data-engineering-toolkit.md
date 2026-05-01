@@ -6,8 +6,6 @@ categories:
     - Concepts
 tags:
     - data-engineering
-    - tools
-    - resources
 
 toc: true
 toc_sticky: true

@@ -5,7 +5,6 @@ categories:
     - Bootcamp
 tags:
     - soft-skills
-    - teamwork
 date: 2025-09-23
 ---
 
