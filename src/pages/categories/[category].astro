@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('posts');
+  const catSet = new Set<string>();
+
+  for (const post of allPosts) {
+    for (const cat of post.data.categories ?? []) {
+      catSet.add(cat);
+    }
+  }
+
+  return [...catSet].map((cat) => ({
+    params: { category: cat.toLowerCase().replace(/\s+/g, '-') },
+    props: {
+      label: cat,
+      posts: allPosts
+        .filter((p) => p.data.categories?.includes(cat))
+        .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+    },
+  }));
+}
+
+const { category } = Astro.params;
+const { label, posts } = Astro.props;
+---
+
+<BaseLayout title={label}>
+  <main class="page-wrapper">
+    <div class="page-header">
+      <h1 class="page-header-title">{label}</h1>
+      <p class="page-header-count">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
+    </div>
+
+    <div class="card-grid">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </main>
+</BaseLayout>

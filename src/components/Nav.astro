@@ -8,6 +8,7 @@ const pathname = Astro.url.pathname;
     <div class="nav-right">
       <a href="/" class:list={['nav-link', { active: pathname === '/' }]}>Home</a>
       <a href="/posts/" class:list={['nav-link', { active: pathname.startsWith('/posts') }]}>Posts</a>
+      <a href="/categories/" class:list={['nav-link', { active: pathname.startsWith('/categories') }]}>Categories</a>
       <a href="/tags/" class:list={['nav-link', { active: pathname.startsWith('/tags') }]}>Tags</a>
       <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode">
         <span id="dark-icon">🌙</span>
