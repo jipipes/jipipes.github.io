@@ -1,0 +1,27 @@
+---
+const pathname = Astro.url.pathname;
+---
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">The Data Pipe</a>
+    <div class="nav-right">
+      <a href="/" class:list={['nav-link', { active: pathname === '/' }]}>Home</a>
+      <a href="/posts/" class:list={['nav-link', { active: pathname.startsWith('/posts') }]}>Posts</a>
+      <a href="/tags/" class:list={['nav-link', { active: pathname.startsWith('/tags') }]}>Tags</a>
+      <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode">
+        <span id="dark-icon">🌙</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<script is:inline>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>

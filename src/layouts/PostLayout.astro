@@ -1,0 +1,55 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { title, date, categories, tags, excerpt, description } = post.data;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={title} description={excerpt ?? description}>
+  <main class="page-wrapper">
+    <article>
+      <header class="post-header">
+        {categories && categories.length > 0 && (
+          <p class="post-category">{categories[0]}</p>
+        )}
+        <h1 class="post-title">{title}</h1>
+        <div class="post-meta">
+          <time datetime={date.toISOString()}>{formattedDate}</time>
+          {tags && tags.length > 0 && (
+            <div class="post-meta-tags">
+              {tags.map((tag) => (
+                <a href={`/tags/${tag}/`} class="post-tag">#{tag}</a>
+              ))}
+            </div>
+          )}
+        </div>
+      </header>
+
+      <div class="post-content">
+        <slot />
+      </div>
+
+      <footer class="post-footer">
+        {tags && tags.length > 0 && (
+          <div class="post-footer-tags">
+            {tags.map((tag) => (
+              <a href={`/tags/${tag}/`} class="post-tag">#{tag}</a>
+            ))}
+          </div>
+        )}
+        <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a>
+      </footer>
+    </article>
+  </main>
+</BaseLayout>

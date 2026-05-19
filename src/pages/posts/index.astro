@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allPosts = await getCollection('posts');
+const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="All Posts">
+  <main class="page-wrapper">
+    <div class="page-header">
+      <h1 class="page-header-title">All Posts</h1>
+      <p class="page-header-count">{posts.length} posts</p>
+    </div>
+
+    <div class="posts-list">
+      {posts.map((post) => {
+        const formattedDate = post.data.date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        });
+        return (
+          <a href={`/posts/${post.slug}/`} class="posts-list-item">
+            <span class="posts-list-date">{formattedDate}</span>
+            <span class="posts-list-title">{post.data.title}</span>
+          </a>
+        );
+      })}
+    </div>
+  </main>
+</BaseLayout>

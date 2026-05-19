@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allPosts = await getCollection('posts');
+const tagCounts: Record<string, number> = {};
+
+for (const post of allPosts) {
+  for (const tag of post.data.tags ?? []) {
+    tagCounts[tag] = (tagCounts[tag] ?? 0) + 1;
+  }
+}
+
+const tags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title="Tags">
+  <main class="page-wrapper">
+    <div class="page-header">
+      <h1 class="page-header-title">Tags</h1>
+      <p class="page-header-count">{tags.length} tags</p>
+    </div>
+
+    <div class="tags-cloud">
+      {tags.map(([tag, count]) => (
+        <a href={`/tags/${tag}/`} class="tag-pill">
+          #{tag} <span style="color: var(--text-muted); font-size: 12px;">({count})</span>
+        </a>
+      ))}
+    </div>
+  </main>
+</BaseLayout>
