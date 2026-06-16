@@ -1,12 +1,11 @@
 ---
-layout: post
 title: "2nd Project Retrospective — When Insight Isn't Enough"
 categories:
     - Bootcamp
 tags:
     - project
     - retrospective
-date: 2026-01-10
+date: 2025-11-02
 description: "I owned a dataset with nothing to engineer. The dashboard succeeded. My contribution barely showed. What I learned wasn't technical — it was about what kind of work I actually want to do."
 ---
 
@@ -36,8 +35,6 @@ Download CSV → Load into Snowflake (no transformation) → Aggregate in Preset
 
 No cleaning. No orchestration. No engineering decision made.
 
----
-
 ### Going All-In on Ideas (That No One Wanted)
 
 With little to do on the technical side, I redirected energy into planning.
@@ -56,8 +53,6 @@ Part of that was on me. As team lead, I had overcorrected from the 1st project �
 
 **Takeaway:** Psychological safety and decisiveness aren't opposites — but balancing them requires explicit structure. Next time: time-box discussions, assign a decision deadline, move.
 
----
-
 ### The Dashboard Looked Great. My Contribution Didn't Show.
 
 The final dashboard was solid. Clean visualizations, coherent storytelling, polished Preset layout. By any external measure, the project worked.
@@ -75,8 +70,6 @@ Reviewing what I had actually done:
 - ❌ No engineering tradeoff made
 
 The issue wasn't that my dataset was small. It was that there was no engineering problem to solve. And without that, I had no idea what I was supposed to be learning.
-
----
 
 ### What This Project Clarified
 
@@ -101,9 +94,7 @@ What I actually want: a team where roles are genuinely different — where a han
 
 The 2nd project didn't tell me what I wanted to do. It told me what I didn't. That was enough to go into the final project with a clearer direction.
 
----
-
-### 📌 TL;DR
+### TL;DR
 
 - Owned a minimal public dataset (monthly CSV, zero transformation needed) — no real engineering work done.
 - Pitched 10+ planning ideas as team lead. Low reception, long meetings. Learned that open discussion without structure just delays decisions.
