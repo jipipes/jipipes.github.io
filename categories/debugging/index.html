@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Debugging — The Data Pipe</title><meta name="description" content="Data engineer documenting pipeline builds, debugging sessions, and technical deep-dives."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link">Posts</a> <a href="/categories/" class="nav-link active">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <div class="page-header"> <h1 class="page-header-title">Debugging</h1> <p class="page-header-count">4 posts</p> </div> <div class="card-grid"> <a href="/posts/2025-12-17-stabilizing-airflow-on-a-t3-medium/" class="post-card"> <div class="post-card-body"> <p class="post-card-date">Dec 17, 2025</p> <h2 class="post-card-title">Stabilizing Airflow on a t3.medium: From OOM Freezes to Concurrency Tuning</h2> <p class="post-card-excerpt">An EC2 t3.medium kept freezing under Airflow. Kernel logs pointed to the OOM killer, not a hang, and swap memory alone wasn&#39;t the fix.</p> <div class="post-card-tags"> <span class="post-tag">#airflow</span><span class="post-tag">#aws</span><span class="post-tag">#ec2</span> </div> </div> </a><a href="/posts/2025-08-28-airflow-pyspark-on-docker-fixing-java-gateway-exited-on-arm64-java-home/" class="post-card"> <div class="post-card-body"> <p class="post-card-date">Aug 28, 2025</p> <h2 class="post-card-title">Airflow + PySpark on Docker: Fixing JAVA_GATEWAY_EXITED on ARM64 JAVA_HOME (DE101 Setup Error #2)</h2>  <div class="post-card-tags"> <span class="post-tag">#airflow</span><span class="post-tag">#pyspark</span><span class="post-tag">#docker</span> </div> </div> </a><a href="/posts/2025-08-26-why-my-github-blog-wouldnt-build-and-how-i-fixed-it/" class="post-card"> <div class="post-card-body"> <p class="post-card-date">Aug 26, 2025</p> <h2 class="post-card-title">Why My GitHub Blog Wouldn&#39;t Build — and How I Fixed It</h2>  <div class="post-card-tags"> <span class="post-tag">#debugging</span> </div> </div> </a><a href="/posts/2025-08-22-airflow-pyspark-on-docker-debugging-java-gateway-exited/" class="post-card"> <div class="post-card-body"> <p class="post-card-date">Aug 22, 2025</p> <h2 class="post-card-title">Airflow + PySpark on Docker: Debugging JAVA_GATEWAY_EXITED (DE101 Setup Error #1)</h2>  <div class="post-card-tags"> <span class="post-tag">#airflow</span><span class="post-tag">#pyspark</span><span class="post-tag">#docker</span> </div> </div> </a> </div> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

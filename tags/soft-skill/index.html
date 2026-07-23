@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>#soft-skill — The Data Pipe</title><meta name="description" content="Data engineer documenting pipeline builds, debugging sessions, and technical deep-dives."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link active">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <div class="page-header"> <h1 class="page-header-title">#soft-skill</h1> <p class="page-header-count">3 posts</p> </div> <div class="card-grid"> <a href="/posts/2026-01-11-final-project-retrospective/" class="post-card"> <div class="post-card-body"> <p class="post-card-date">Jan 11, 2026</p> <h2 class="post-card-title">Final Project Retrospective: What Good Collaboration Sounds Like</h2> <p class="post-card-excerpt">The best team I&#39;ve worked with, the quiet guilt of feeling like I wasn&#39;t contributing enough, and what I want to do differently next time.</p> <div class="post-card-tags"> <span class="post-tag">#project</span><span class="post-tag">#retrospective</span><span class="post-tag">#soft-skill</span> </div> </div> </a><a href="/posts/2025-11-30-3rd-project-retrospective-2/" class="post-card"> <div class="post-card-body"> <p class="post-card-date">Nov 30, 2025</p> <h2 class="post-card-title">3rd Project Retrospective: When Careful Isn&#39;t the Same as Fast</h2> <p class="post-card-excerpt">We spent real time syncing on consistency. It fell apart the moment one person moved solo without saying so. And being technically careful didn&#39;t make me useful to the team.</p> <div class="post-card-tags"> <span class="post-tag">#project</span><span class="post-tag">#retrospective</span><span class="post-tag">#soft-skill</span> </div> </div> </a><a href="/posts/2025-09-23-working-with-a-efficiency-driven-leader/" class="post-card"> <div class="post-card-body"> <p class="post-card-date">Sep 23, 2025</p> <h2 class="post-card-title">Soft Skill Actions: Working with a &#39;Efficiency-Driven&#39; Leader.</h2>  <div class="post-card-tags"> <span class="post-tag">#soft-skill</span> </div> </div> </a> </div> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

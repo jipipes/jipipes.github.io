@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Bootcamp Coding Test Retrospective: Approach, Mistakes, and Next Steps — The Data Pipe</title><meta name="description" content="Data engineer documenting pipeline builds, debugging sessions, and technical deep-dives."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Learning Notes</p> <h1 class="post-title">Bootcamp Coding Test Retrospective: Approach, Mistakes, and Next Steps</h1> <div class="post-meta"> <time datetime="2025-08-24T00:00:00.000Z">August 24, 2025</time> <div class="post-meta-tags"> <a href="/tags/coding-test/" class="post-tag">#coding-test</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a> </div> </div> </header> <div class="post-content">  <p>I recently took an online coding assessment as part of a bootcamp application.<br>
+It ran between the 22nd and 24th via a link shared by email.</p>
+<p>The test consisted of:</p>
+<ul>
+<li>Two Python problems</li>
+<li>One SQL query</li>
+<li>One Database modeling question</li>
+</ul>
+<p>While I can’t disclose the exact problems, I want to reflect on how I approached the test—what I did wrong, and what I can learn from it.</p>
+<hr>
+<h3 id="1-working-under-time-pressure">1. Working Under Time Pressure</h3>
+<p>Ultimately, I realized I need to <strong>expose myself more to timed environments</strong> like this.<br>
+There was a moment when I realized my entire logic was flawed, and my mind just went blank.</p>
+<p>I panicked. I didn’t know what to fix first, and that’s when I saw that I lacked the right debugging mindset.</p>
+<blockquote>
+<p>When a test case fails, I should start by carefully comparing the expected vs actual outputs.</p>
+</blockquote>
+<hr>
+<h3 id="2-rushing-into-code">2. Rushing Into Code</h3>
+<p>This is a classic trap: I skimmed the problem and jumped right into writing code.</p>
+<p>It reminded me of students who skim a passage on a standardized test and assume they understood it. I made the same mistake.<br>
+Even though I tried to break the problem into smaller TODOs, none of that helped when I misunderstood the core problem itself.</p>
+<ul>
+<li>I treated a 2D array as a 1D list.</li>
+<li>I didn’t simulate the sample inputs in my head.</li>
+<li>I misunderstood constraints like list lengths, assuming they were flat instead of nested.</li>
+</ul>
+<hr>
+<h3 id="3-misinterpreting-conditional-logic">3. Misinterpreting Conditional Logic</h3>
+<p>Some problems had layered conditions.<br>
+I failed to understand their <strong>priority or nesting structure</strong>.</p>
+<p>Was it an AND? An OR? A subset condition?</p>
+<p>Turns out, one condition was embedded within another, and I was handling them in the wrong order.</p>
+<hr>
+<h3 id="4-sql-and-database-getting-tougher">4. SQL and Database: Getting Tougher</h3>
+<p>I felt the SQL and database questions were harder than those from the previous cohorts.<br>
+Last time, I was able to solve both within 30 minutes—but this time, they took much longer.</p>
+<p>Maybe the difficulty increased, or maybe I’m just rusty.</p>
+<p>Either way, if I say I want to be a data engineer, then <strong>weak SQL skills are like going to battle without a weapon.</strong></p>
+<p>I plan to study SQL more seriously from now on—via:</p>
+<ul>
+<li>Programmers SQL practice sets and online courses</li>
+<li>The book “SQL 200 Problems”</li>
+</ul>
+<hr>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>I don’t know yet whether I passed.<br>
+But, I’m grateful for the experience because it exposed the gaps in my process.</p>
+<p>This test wasn’t just about coding—it reminded me of how important it is to think clearly under pressure, understand problem requirements, and write robust, testable code.</p>
+<p>I’ll keep learning, and next time, I’ll be more ready.</p>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/coding-test/" class="post-tag">#coding-test</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

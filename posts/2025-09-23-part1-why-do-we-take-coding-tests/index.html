@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Part1: Why do we take coding tests? — The Data Pipe</title><meta name="description" content="Data engineer documenting pipeline builds, debugging sessions, and technical deep-dives."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Learning Notes</p> <h1 class="post-title">Part1: Why do we take coding tests?</h1> <div class="post-meta"> <time datetime="2025-09-23T00:00:00.000Z">September 23, 2025</time> <div class="post-meta-tags"> <a href="/tags/coding-test/" class="post-tag">#coding-test</a> </div> </div> </header> <div class="post-content">  <p>Recently a question was asked in a data engineer group chat:</p>
+<p>| <strong>Do data engineers have to take coding tests?</strong></p>
+<p>While it’s a common question from beginners, it made me stop and think.</p>
+<blockquote>
+<p>Why do companies require them?
+Is it just to screen for the best candidates among a flood of applicants?</p>
+</blockquote>
+<p>After some reflection, I came to a different conclusion.</p>
+<p>I believe they want to see if you have the <strong>minimum level of problem-solving skills</strong> needed for the job.</p>
+<p>The test isn’t meant to determine if someone is a “good developer” based on their score. Instead, it serves as a gateway to confirm that a candidate possesses the foundational skills to move on to the next interview stage.</p>
+<p>Since problem-solving is especially critical for a data engineer. I believe coding tests are a crucial and meaningful part of the hiring process.</p>
+<hr>
+<h3 id="coding-test--competitive-programming">Coding Test ≠ Competitive Programming</h3>
+<p>A coding test isn’t about proving you’re a genius.</p>
+<p>It’s about showing that:</p>
+<ol>
+<li>You can <strong>analyze a problem</strong></li>
+<li>And <strong>implement a solution</strong> in code</li>
+</ol>
+<p>This includes:</p>
+<ul>
+<li>Understanding constraints</li>
+<li>Coming up with a viable approach</li>
+<li>Writing syntactically and logically correct code</li>
+<li>Doing all of this under <strong>time pressure</strong></li>
+</ul>
+<hr>
+<h3 id="coding-interview-vs-coding-test">Coding Interview vs Coding Test</h3>
+<p>While a coding test is about performance under pressure, a coding interview adds another layer:</p>
+<blockquote>
+<p>Can you explain your thinking clearly and logically?</p>
+</blockquote>
+<p>You may be asked to:</p>
+<ul>
+<li>Code live in front of an interviewer(or together with eidit mode)
+<ul>
+<li>Walk through your logic</li>
+</ul>
+</li>
+<li>Sketch out architectures on a whiteboard
+<ul>
+<li>Discuss trade-offs and alternatives</li>
+</ul>
+</li>
+</ul>
+<p>This interview both your <strong>technical clarity</strong> and <strong>communication skills</strong> — two must-haves for real-world software development.</p>
+<hr>
+<h3 id="what-types-of-questions-do-coding-tests-include">What types of questions do coding tests include?</h3>
+<ol>
+<li><strong>Implementation Problems</strong></li>
+</ol>
+<blockquote>
+<p>Logic is already provided. You just need to code it up.</p>
+</blockquote>
+<p>These are usually entry-level and assess basic programming fluency. Think of them as warm-up questions.</p>
+<ol start="2">
+<li><strong>Algorithm Comprehension</strong></li>
+</ol>
+<blockquote>
+<p>You’re expected to design an efficient algorithm to solve the give problem.</p>
+</blockquote>
+<p>Not just “Can you solve it?” but:</p>
+<ul>
+<li>Can you solve it <strong>well</strong> (effectively)?</li>
+<li>Can you solve it <strong>fast</strong> (efficiently)?</li>
+</ul>
+<p>Here, understanding <strong>Big-O complexity</strong> becomes essential.</p>
+<ol start="3">
+<li><strong>Competency-Level Challenges</strong></li>
+</ol>
+<blockquote>
+<p>Requires knowledge of specific data structures and advanced algorithms.</p>
+</blockquote>
+<p>These are more difficult and are often used in competitions or final-round interviews. Examples:</p>
+<ul>
+<li>BFS / DFS</li>
+<li>Dijkstra</li>
+<li>Dynamic Programming</li>
+<li>Graph Traversals</li>
+</ul>
+<ol start="4">
+<li><strong>SQL / Domain-Specific Tests</strong></li>
+</ol>
+<blockquote>
+<p>ex. Can you write a vaild SQL query under constraints?</p>
+</blockquote>
+<p>Often used for data-related roles or positions with domain-specific tooling.</p>
+<hr>
+<h3 id="tldr">TL;DR</h3>
+<p>Coding tests are about:</p>
+<ul>
+<li>Assessing whether applicant have <strong>the minimum level</strong> of problem-solving skills.</li>
+</ul>
+<p>Next post: <em>What you actually need to learn to pass coding tests</em></p>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/coding-test/" class="post-tag">#coding-test</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

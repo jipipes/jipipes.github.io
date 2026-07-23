@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>2nd Project Retrospective: When Insight Isn&#39;t Enough — The Data Pipe</title><meta name="description" content="I owned a dataset with nothing to engineer. The dashboard succeeded. My contribution barely showed. What I learned wasn't technical. It was about what kind of work I actually want to do."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Engineering Retrospectives</p> <h1 class="post-title">2nd Project Retrospective: When Insight Isn&#39;t Enough</h1> <div class="post-meta"> <time datetime="2025-11-02T00:00:00.000Z">November 2, 2025</time> <div class="post-meta-tags"> <a href="/tags/project/" class="post-tag">#project</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a> </div> </div> </header> <div class="post-content">  <h3 id="the-setup-data-without-drama">The Setup: Data Without Drama</h3>
+<p>Our team of four each pitched topic ideas, narrowed them to two candidates, explored the data, and voted on a final direction.</p>
+<p>As team lead, I came in prepared: compiled references, watched YouTube breakdowns of similar projects, and built out a structured proposal deck. On voting day, we landed on two options: one that was overly generic, one that had already been done by a previous cohort. Neither was what I had pitched.</p>
+<p>I set that aside and focused on what I could learn from whichever direction we went.</p>
+<p>We split into pairs to research both candidates. The final theme was decided, and it wasn’t the one I’d been assigned. I ended up owning a supporting dataset: <strong>monthly heatwave and cold wave statistics from Korean public records.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Attribute</th><th>Detail</th></tr></thead><tbody><tr><td>Source</td><td>Public government report</td></tr><tr><td>Update frequency</td><td>Monthly</td></tr><tr><td>Format</td><td>CSV</td></tr><tr><td>Volume</td><td>Few rows, few columns</td></tr><tr><td>Engineering required</td><td>None</td></tr></tbody></table>
+<p>I pushed to extract something useful. I tracked down disease and mortality figures linked to extreme weather events to surface as big-number metrics. The data barely supported it. In the end, my pipeline looked like this:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Download CSV → Load into Snowflake (no transformation) → Aggregate in Preset</span></span>
+<span class="line"><span></span></span></code></pre>
+<p>No cleaning. No orchestration. No engineering decision made.</p>
+<hr>
+<h3 id="going-all-in-on-ideas-that-no-one-wanted">Going All-In on Ideas (That No One Wanted)</h3>
+<p>With little to do on the technical side, I redirected energy into planning.</p>
+<p>I put together 10+ proposals: visualizations we could build, narrative angles, dashboard structures. I researched what makes dashboards genuinely useful beyond aesthetics. The ideas were feasible. None of them required anything technically out of reach.</p>
+<p>The reception was flat. No pushback, no iteration, no momentum. Meetings ran long without resolution.</p>
+<p>Part of that was on me. As team lead, I had overcorrected from the 1st project by prioritizing open discussion to the point where decisions kept getting deferred.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>What I tried</th><th>What actually happened</th></tr></thead><tbody><tr><td>Open discussion, everyone speaks</td><td>Meetings ran too long</td></tr><tr><td>No pressure to decide immediately</td><td>Decisions kept getting deferred</td></tr><tr><td>Flat hierarchy in planning</td><td>No one called time</td></tr></tbody></table>
+<p><strong>Takeaway:</strong> Psychological safety and decisiveness aren’t opposites, but balancing them requires explicit structure. Next time: time-box discussions, assign a decision deadline, move.</p>
+<hr>
+<h3 id="the-dashboard-looked-great-my-contribution-didnt-show">The Dashboard Looked Great. My Contribution Didn’t Show.</h3>
+<p>The final dashboard was solid. Clean visualizations, coherent storytelling, polished Preset layout. By any external measure, the project worked.</p>
+<p>My contribution represented less than 10% of what was on screen. Being generous.</p>
+<p>Reviewing what I had actually done:</p>
+<ul>
+<li>✅ Downloaded a CSV</li>
+<li>✅ Loaded it into Snowflake without transformation</li>
+<li>✅ Built two Preset charts from aggregated data</li>
+<li>❌ No pipeline design</li>
+<li>❌ No data modeling</li>
+<li>❌ No automation</li>
+<li>❌ No engineering tradeoff made</li>
+</ul>
+<p>The issue wasn’t that my dataset was small. It was that there was no engineering problem to solve. And without that, I had no idea what I was supposed to be learning.</p>
+<hr>
+<h3 id="what-this-project-clarified">What This Project Clarified</h3>
+<p>The disengagement toward the end of this project is something I own. Pulling back when things feel unrewarding isn’t a strategy. It just makes things worse for the team. That’s a pattern I’m actively working on.</p>
+<p>But the project did surface something useful: a clearer picture of where my interest actually sits.</p>
+<p><strong>On the type of work:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Question</th><th>My reaction</th></tr></thead><tbody><tr><td>”What insight should we surface, and how do we visualize it?”</td><td>Low engagement</td></tr><tr><td>”How should data flow from source to warehouse, and what needs to happen along the way?”</td><td>High engagement</td></tr></tbody></table>
+<p>That gap is meaningful. I’m not drawn to the output layer. I’m drawn to the pipeline.</p>
+<p><strong>On team structure:</strong></p>
+<p>This project had everyone owning a slice of the same role, differentiated only by which dataset they handled. In practice, it felt less like collaboration and more like parallel solo work that happened to end up in the same dashboard.</p>
+<p>What I actually want: a team where roles are genuinely different, where a handoff between people means something technically.</p>
+<p>The 2nd project didn’t tell me what I wanted to do. It told me what I didn’t. That was enough to go into the final project with a clearer direction.</p>
+<hr>
+<h3 id="tldr">TL;DR</h3>
+<ul>
+<li>Owned a minimal public dataset (monthly CSV, zero transformation needed). No real engineering work done.</li>
+<li>Pitched 10+ planning ideas as team lead. Low reception, long meetings. Learned that open discussion without structure just delays decisions.</li>
+<li>Final dashboard was a success. My contribution was barely visible, and reviewing the checklist of what I actually built made that hard to ignore.</li>
+<li>Key realization: I care about pipeline design and data flow, not visualization and insight delivery. That distinction carried into the final project.</li>
+</ul>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/project/" class="post-tag">#project</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

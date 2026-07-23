@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Bootcamp Interview Retrospective – I Wasn’t as Ready as I Thought — The Data Pipe</title><meta name="description" content="Data engineer documenting pipeline builds, debugging sessions, and technical deep-dives."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Learning Notes</p> <h1 class="post-title">Bootcamp Interview Retrospective – I Wasn’t as Ready as I Thought</h1> <div class="post-meta"> <time datetime="2025-08-27T00:00:00.000Z">August 27, 2025</time> <div class="post-meta-tags"> <a href="/tags/interview/" class="post-tag">#interview</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a> </div> </div> </header> <div class="post-content">  <p>After submitting the coding test on the 24th, I received an email on the 25th. The phone interview was scheduled for the 26th. As with previous cohorts, I wasn’t given a choice in scheduling—it was set for me.</p>
+<p>I had prepared for this interview in a previous cohort, so I thought I’d be fine reusing that prep.
+I actually made it to the interview stage last time, but I ultimately withdrew my application because I realized it would be impossible to balance the program with my schoolwork.
+This time, my circumstances are different, so I’m fully committed to joining.</p>
+<p>The call came around 3 PM and lasted about 7 minutes.</p>
+<p>Looking back now, the only conclusion I can draw is this:
+<strong>I’m still very lacking when it comes to interviews.</strong></p>
+<p>Even though I tried not to be nervous, I stumbled a lot, especially at the end of each answer.
+I must’ve come across as someone with very little confidence.</p>
+<p><del>(At one point, I caught myself just saying “yes, yes, yes” like a customer service rep… yeah, I need to fix that.)</del></p>
+<p>Strangely, this never happens in part-time job interviews.
+But in school-related interviews or extracurricular activities, I always freeze up.
+To improve, I think I need:</p>
+<ul>
+<li>
+<p>More real interview experience</p>
+</li>
+<li>
+<p>To record and listen to my own answers</p>
+</li>
+<li>
+<p>To receive feedback on my interview delivery</p>
+</li>
+</ul>
+<hr>
+<h3 id="what-i-was-asked">What I Was Asked</h3>
+<p><strong>1. Can you commit to the program schedule?</strong></p>
+<ul>
+<li>
+<p>Have you participated in KDT before?</p>
+</li>
+<li>
+<p>Do you have a physical Naeil Baeum (K-Digital) card?</p>
+</li>
+<li>
+<p>Can you commit to full-time &#x26; core hours?</p>
+</li>
+</ul>
+<p>These were straightforward.</p>
+<hr>
+<p><strong>2. Why are you interested in data engineering?</strong></p>
+<p>I answered with a personal story:</p>
+<p>I was originally a student in International Economics &#x26; Law.
+While preparing for the CPA exam, I noticed that many accounting firms preferred candidates who knew Python. That intrigued me, and I attended a talk on data analytics in accounting firms. It opened my eyes to the world of data—and I thought it was a good fit for me.</p>
+<p>But in reality, I gave a very disorganized version of this answer. I rambled, and it must’ve been hard to follow. The interviewer even had to ask what my major was again.</p>
+<p>I had prepared my answer to “Why this bootcamp?”—not “Why data engineering?”
+The first story that came to mind was this one, but it didn’t align with what I’d written in my application (where I mentioned working at a startup as the trigger).</p>
+<p>I should’ve:</p>
+<ul>
+<li>
+<p>Started with the point, then added context (top-down)</p>
+</li>
+<li>
+<p>Structured my story better for clarity</p>
+</li>
+</ul>
+<hr>
+<p><strong>3. What do you hope to gain from this bootcamp?</strong></p>
+<p>I answered honestly:</p>
+<p>I don’t often get the chance to discuss ideas or share thoughts with others about DE.
+I want to talk freely with mentors and peers who are also aiming for careers in this field.</p>
+<hr>
+<p><strong>4. You mentioned you’re working on a project—what challenges are you facing?</strong></p>
+<p>This one caught me off guard.
+It was in my application, so I should’ve expected the question. But I hadn’t thought about how to answer it.</p>
+<p>I don’t even remember what I said. I gave a vague, surface-level answer like,</p>
+<p>“I was using the cloud but didn’t understand it well, so I paused the project to study more.”</p>
+<p>It was a terrible answer.
+There were so many great things I could have said—like how API automation was tricky, or how building a data architecture was challenging.
+But I panicked and ended up sounding like I hadn’t even done the project at all.
+This was the worst moment of the interview for me.</p>
+<hr>
+<p><strong>5. If you face similar challenges during the bootcamp, how would you handle them?</strong></p>
+<p>I mentioned the mentoring program and said I’d actively ask mentors and teammates for help. This was a spontaneous but honest answer.</p>
+<hr>
+<p><strong>6. How would you deal with skill differences during team projects?</strong></p>
+<p>I said differences in skills or opinions are inevitable, so it’s important to communicate openly and use tools like Notion to make collaboration smoother.
+This was a question I’d anticipated, so I answered it confidently.</p>
+<hr>
+<p><strong>7. Any final words?</strong></p>
+<p>They asked if I had anything to add.
+I hesitated briefly, then shared a prepared statement about how determined I was.
+But I probably rambled too long—so it lacked impact.
+Still, I believe in making a final impression, even if it’s just one line.</p>
+<p>Next time, I want to prepare something short and memorable instead of a long-winded “I’ll try my best” kind of speech.</p>
+<hr>
+<p><strong>Final Reflection</strong></p>
+<p>This interview reminded me of a critical lesson:</p>
+<p>| <strong>“Feeling prepared” is a dangerous illusion.</strong></p>
+<p>Confidence doesn’t come from thinking you’re ready.
+It comes from actually preparing thoroughly, down to the last detail.
+Until I reach that point, I’ll keep practicing and improving.</p>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/interview/" class="post-tag">#interview</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

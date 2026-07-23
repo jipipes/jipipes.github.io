@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>[DE101] get started — The Data Pipe</title><meta name="description" content="Data engineer documenting pipeline builds, debugging sessions, and technical deep-dives."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Learning Notes</p> <h1 class="post-title">[DE101] get started</h1> <div class="post-meta"> <time datetime="2025-08-20T00:00:00.000Z">August 20, 2025</time> <div class="post-meta-tags"> <a href="/tags/data-engineering/" class="post-tag">#data-engineering</a><a href="/tags/learning/" class="post-tag">#learning</a> </div> </div> </header> <div class="post-content">  <p>I’ve been working on projects, and I often feel stuck and that things are getting messy. This experience made me realize I need to deepen my knowledge in data engineering.</p>
+<p>After some research, I found a great resource: de101.startdataengineering.com, which combines theory with hands-on practice. I’ve decided to start right away.</p>
+<h3 id="my-goals-for-this-learning-journey-are-as-follows">My goals for this learning journey are as follows:</h3>
+<blockquote>
+<ol>
+<li>To be able to choose the most optimal technology for a given objective.</li>
+<li>To understand why each technology is necessary and be able to analyze their pros and cons. (This will help me make informed trade-off decisions.)</li>
+<li>To strengthen my fundamentals to develop strong computational thinking skills.</li>
+</ol>
+</blockquote>
+<p>I believe these are not just goals for this course but are the fundamental objectives of anyone studying data engineering.</p>
+<p>A critical rule for this journey is  <strong>to avoid relying on LLMs</strong> for problem-solving. Recently, I’ve noticed I’ve become too dependent on them.
+I believe it’s essential to build my foundational “muscles” by tackling complex and tedious problems on my own. Just as you need a strong base to lift heavy weights, I need to focus on building a solid foundation</p>
+<p>I’ve already forked the repository and completed the prerequisites. I’m excited to start the practical exercises using Docker, Spark, and Airflow.</p>
+<p>As I continue to learn, I hope to not only become proficient in specific technologies but also to be a person who can see the big picture.</p>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/data-engineering/" class="post-tag">#data-engineering</a><a href="/tags/learning/" class="post-tag">#learning</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

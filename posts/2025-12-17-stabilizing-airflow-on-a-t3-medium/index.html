@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Stabilizing Airflow on a t3.medium: From OOM Freezes to Concurrency Tuning — The Data Pipe</title><meta name="description" content="An EC2 t3.medium kept freezing under Airflow. Kernel logs pointed to the OOM killer, not a hang, and swap memory alone wasn't the fix."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Debugging</p> <h1 class="post-title">Stabilizing Airflow on a t3.medium: From OOM Freezes to Concurrency Tuning</h1> <div class="post-meta"> <time datetime="2025-12-17T00:00:00.000Z">December 17, 2025</time> <div class="post-meta-tags"> <a href="/tags/airflow/" class="post-tag">#airflow</a><a href="/tags/aws/" class="post-tag">#aws</a><a href="/tags/ec2/" class="post-tag">#ec2</a><a href="/tags/debugging/" class="post-tag">#debugging</a> </div> </div> </header> <div class="post-content">  <h2 id="tldr">TL;DR</h2>
+<ol>
+<li>Root cause: the EC2 instance wasn’t hanging. The kernel’s OOM killer was silently terminating processes because Airflow’s default settings asked for more memory than a t3.medium (3.7GiB) had to give.</li>
+<li>First fix (partial): adding 2GB of swap resolved UI access, but workflows still failed. Airflow’s default <code>AIRFLOW__CELERY__WORKER_CONCURRENCY: 16</code> was still oversubscribing the instance.</li>
+<li>Real fix: dropping worker concurrency to 2 to match actual hardware. Swap bought headroom; concurrency tuning fixed the actual oversubscription.</li>
+</ol>
+<hr>
+<h3 id="context">Context</h3>
+<p>After validating an Airflow + Docker Compose setup locally, I migrated it to an EC2 t3.medium instance. The first time I opened the Airflow Web UI to register connection info (DB and API credentials), the page hung indefinitely and the entire instance stopped responding. I force-restarted it and tried the same registration through the CLI instead of the UI, assuming the web server was the problem. Same freeze. That ruled out the UI itself as the cause.</p>
+<hr>
+<h3 id="checking-memory-usage">Checking memory usage</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">$</span><span style="color:#032F62"> free</span><span style="color:#005CC5"> -h</span></span>
+<span class="line"></span></code></pre>
+<p><img src="/assets/img/post-2025-12-17-0.png" alt="free -h output showing high memory usage"></p>
+<p>Of 3.7GiB total memory, 78% (2.9GiB) was already in use, with only ~577MiB available.</p>
+<h3 id="confirming-it-was-oom-not-a-hang">Confirming it was OOM, not a hang</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># OOM-related errors from syslog</span></span>
+<span class="line"><span style="color:#6F42C1">sudo</span><span style="color:#032F62"> grep</span><span style="color:#005CC5"> -i</span><span style="color:#032F62"> "out of memory \|oom\|kill"</span><span style="color:#032F62"> /var/log/syslog</span><span style="color:#D73A49"> ></span><span style="color:#032F62"> /tmp/oom_check.log</span></span>
+<span class="line"><span style="color:#6A737D"># OOM-related errors from the kernel log</span></span>
+<span class="line"><span style="color:#6F42C1">sudo</span><span style="color:#032F62"> grep</span><span style="color:#005CC5"> -i</span><span style="color:#032F62"> "out of memory \|oom\|kill"</span><span style="color:#032F62"> /var/log/kern.log</span><span style="color:#D73A49"> >></span><span style="color:#032F62"> /tmp/oom_check.log</span></span>
+<span class="line"><span style="color:#6A737D"># Live kernel ring buffer, same search</span></span>
+<span class="line"><span style="color:#6F42C1">sudo</span><span style="color:#032F62"> dmesg</span><span style="color:#D73A49"> |</span><span style="color:#6F42C1"> grep</span><span style="color:#005CC5"> -i</span><span style="color:#032F62"> "out of memory \|oom\|kill"</span><span style="color:#D73A49"> >></span><span style="color:#032F62"> /tmp/oom_check.log</span></span>
+<span class="line"><span style="color:#6A737D"># Review</span></span>
+<span class="line"><span style="color:#6F42C1">grep</span><span style="color:#005CC5"> -i</span><span style="color:#032F62"> "killed process"</span><span style="color:#032F62"> /tmp/oom_check.log</span></span>
+<span class="line"><span style="color:#6F42C1">grep</span><span style="color:#005CC5"> -B</span><span style="color:#005CC5"> 5</span><span style="color:#005CC5"> -A</span><span style="color:#005CC5"> 5</span><span style="color:#032F62"> "Out of memory"</span><span style="color:#032F62"> /tmp/oom_check.log</span></span>
+<span class="line"></span></code></pre>
+<p><img src="/assets/img/post-2025-12-17-1.png" alt="kernel logs showing OOM killer activity"></p>
+<p>One-line diagnosis: this wasn’t a frozen instance. The kernel’s OOM killer was terminating processes under memory pressure, which looked identical to a hang from the outside.</p>
+<hr>
+<h3 id="fix-part-1-swap-memory">Fix, part 1: swap memory</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 1. Create a 2GB file to back the swap space</span></span>
+<span class="line"><span style="color:#6F42C1">sudo</span><span style="color:#032F62"> fallocate</span><span style="color:#005CC5"> -l</span><span style="color:#032F62"> 2G</span><span style="color:#032F62"> /swapfile</span></span>
+<span class="line"><span style="color:#6A737D"># 2. Restrict permissions to owner read/write only</span></span>
+<span class="line"><span style="color:#6F42C1">sudo</span><span style="color:#032F62"> chmod</span><span style="color:#005CC5"> 600</span><span style="color:#032F62"> /swapfile</span></span>
+<span class="line"><span style="color:#6A737D"># 3. Format the file as Linux swap</span></span>
+<span class="line"><span style="color:#6F42C1">sudo</span><span style="color:#032F62"> mkswap</span><span style="color:#032F62"> /swapfile</span></span>
+<span class="line"><span style="color:#6A737D"># 4. Enable it immediately</span></span>
+<span class="line"><span style="color:#6F42C1">sudo</span><span style="color:#032F62"> swapon</span><span style="color:#032F62"> /swapfile</span></span>
+<span class="line"><span style="color:#6A737D"># 5. Persist it across reboots</span></span>
+<span class="line"><span style="color:#005CC5">echo</span><span style="color:#032F62"> '/swapfile none swap sw 0 0'</span><span style="color:#D73A49"> |</span><span style="color:#6F42C1"> sudo</span><span style="color:#032F62"> tee</span><span style="color:#005CC5"> -a</span><span style="color:#032F62"> /etc/fstab</span></span>
+<span class="line"><span style="color:#6A737D"># 6. Confirm</span></span>
+<span class="line"><span style="color:#6F42C1">free</span><span style="color:#005CC5"> -h</span></span>
+<span class="line"></span></code></pre>
+<p><img src="/assets/img/post-2025-12-17-2.png" alt="free -h output after enabling swap"></p>
+<p><strong>Result (partial):</strong> Connection registration succeeded this time. But once DAGs actually started running, 36 workflows spun up and none of them executed.</p>
+<p><img src="/assets/img/post-2025-12-17-3.png" alt="36 workflows stuck without executing"></p>
+<p>Checking the worker logs:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">docker</span><span style="color:#032F62"> logs</span><span style="color:#032F62"> threelacha_airflow_dbt-airflow-worker-1</span><span style="color:#005CC5"> --tail=50</span></span>
+<span class="line"></span></code></pre>
+<p><img src="/assets/img/post-2025-12-17-4.png" alt="worker logs showing SIGKILL"></p>
+<p><code>Process 'ForkPoolWorker-1' exited with 'signal 9 (SIGKILL)'</code>. Swap fixed the UI freeze, but Airflow’s default concurrency (<code>concurrency: 16</code>, prefork) was still asking for more parallel workers than a t3.medium could actually run.</p>
+<hr>
+<h3 id="fix-part-2-right-sizing-concurrency">Fix, part 2: right-sizing concurrency</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">airflow-worker</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#22863A">    environment</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#005CC5">      &#x3C;&#x3C;</span><span style="color:#24292E">: </span><span style="color:#D73A49">*</span><span style="color:#24292E">airflow-common-env</span></span>
+<span class="line"><span style="color:#22863A">      AIRFLOW__CELERY__WORKER_CONCURRENCY</span><span style="color:#24292E">: </span><span style="color:#005CC5">2</span><span style="color:#6A737D">  # concurrent Celery tasks</span></span>
+<span class="line"></span></code></pre>
+<p><strong>Result:</strong></p>
+<p><img src="/assets/img/post-2025-12-17-5.png" alt="DAGs running successfully after concurrency fix"></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Item</th><th>AS-IS</th><th>TO-BE</th></tr></thead><tbody><tr><td>EC2 OS</td><td>Swap memory</td><td>None</td><td>2GB</td></tr><tr><td>docker-compose.yml</td><td><code>AIRFLOW__CELERY__WORKER_CONCURRENCY</code></td><td>16</td><td>2</td></tr></tbody></table>
+<hr>
+<h3 id="why-this-mattered">Why this mattered</h3>
+<ul>
+<li><strong>Stability:</strong> the OOM-killer-driven freezes were root-caused and fixed at the source, instead of working around them with restarts.</li>
+<li><strong>Predictability:</strong> matching concurrency to actual hardware cut down on resource contention and raised the pipeline’s success rate, with no more silently-dead workflows.</li>
+<li><strong>Cost:</strong> the fix was configuration, not a bigger instance. Jumping to a t3.large would have solved it too, at a recurring cost, for a problem that was actually about defaults, not capacity.</li>
+</ul>
+<hr>
+<h3 id="what-id-look-at-next">What I’d look at next</h3>
+<ul>
+<li><strong>LocalExecutor:</strong> since this is a single-node setup, LocalExecutor would drop the need for a separate message broker (Redis) entirely and free up more memory for actual task execution.</li>
+<li><strong>Scale-out / MWAA:</strong> splitting the worker component onto its own instance, or moving to AWS’s managed Airflow (MWAA), would reduce the operational burden of tuning this by hand, and is probably the change that would have prevented this incident in the first place rather than just recovering from it.</li>
+</ul>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/airflow/" class="post-tag">#airflow</a><a href="/tags/aws/" class="post-tag">#aws</a><a href="/tags/ec2/" class="post-tag">#ec2</a><a href="/tags/debugging/" class="post-tag">#debugging</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

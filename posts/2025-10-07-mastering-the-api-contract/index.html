@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Mastering the API Contract: From Frontend Confusion to Collaborative Specification — The Data Pipe</title><meta name="description" content="A reflection on learning to design and negotiate an API specification, from frontend confusion to true collaboration with backend developers."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Architecture Decisions</p> <h1 class="post-title">Mastering the API Contract: From Frontend Confusion to Collaborative Specification</h1> <div class="post-meta"> <time datetime="2025-10-07T00:00:00.000Z">October 7, 2025</time> <div class="post-meta-tags"> <a href="/tags/api/" class="post-tag">#api</a><a href="/tags/project/" class="post-tag">#project</a> </div> </div> </header> <div class="post-content">  <h3 id="initial-research-defining-the-api-contract">Initial Research: Defining the API Contract</h3>
+<p>As this was my first time creating an API specification from a frontend perspective, I started by researching how it’s handled in real-world projects. I found that:
+<br></p>
+<details>
+    <summary>Basic concept of API Specification</summary>
+    <p>: a guide that defines how features should be requested and responded to, typically drafted after the initial planning and UI/UX stages.</p>
+    <p>There is no single set of rigid rules; documentation methods vary widely, from simple emails to detailed Excel files. The key is for the specific team or organization to establish clear design principles.</p>
+    <p>Fundamentally, an API is composed of a <strong>Method + Endpoint</strong>.</p>
+</details>
+<br>
+I learned that the following principles are crucial for effective design:
+<ul>
+<li>Endpoints should be used as <strong>nouns</strong>.</li>
+<li>The path should move from a broader resource to a more specific one.</li>
+<li>Avoid using file extensions.</li>
+<li>Use dashes (-) instead of spaces.</li>
+<li>One URL should generally correspond to one resource.</li>
+</ul>
+<details>
+    <summary>What is an Endpoint?</summary>
+    <p>A dictionary definition is: "An Endpoint is one end of a communication channel."</p>
+    <p>on a domain like <code>www.reddit.com</code>, the full request path looks like this:</p>
+    <pre><code>DOMAIN: www.redit.com
+METHODS: GET
+ENDPOINT: /posts(resource)/1212121212(parameter)?contents=season_4_photo(query_string)</code></pre>
+    <p>The Method refers to an HTTP verb (GET, PUT, POST, DELETE), and the Resource refers to the domain's resource. Therefore, the Endpoint consists of the resource, parameter, and query string.</p>
+</details>
+<hr>
+<h3 id="the-flawed-process-and-the-ideal-realization">The Flawed Process and the Ideal Realization</h3>
+<p>Initially, my approach to creating the specification was linear: I organized the feature requirements, roughly mapped out where data should flow, and then, after all my solitary research and learning, I created the API specification alone and submitted it to the backend developer for feedback.</p>
+<p>This process, which began with mapping out the UI/UX on Figma to understand the user flow, led to a critical realization: my solo work was fundamentally flawed.</p>
+<p>I realized that a much better process for future projects should be:</p>
+<ol>
+<li><strong>Collaborative Planning:</strong> Define feature requirements <strong>together with all team members</strong> during the planning stage.</li>
+<li><strong>Joint Data Scoping:</strong> Discuss, as a team, what data should be included in the requests and responses based on the agreed-upon features.</li>
+<li><strong>FE-Driven Response Specification:</strong> The frontend should clearly state <strong>how they need the data field in the response to look</strong>, and then adjust the direction in consultation with the backend team.</li>
+</ol>
+<p>I am committed to following this collaborative process in every project I handle, regardless of my role. I realized that the issue of teammates not being on the <strong>“same page”</strong> was a recurring problem. This requires continuous adjustment through meetings.</p>
+<p>My confusion about the overall project picture stemmed from the fact that our team never properly documented feature specifications. I was left to scour meeting minutes and backlog materials alone to piece together the requirements. I now know this was a huge mistake, and I am determined to request a meeting whenever a critical specification is unclear.</p>
+<hr>
+<h3 id="the-api-response-format-debate">The API Response Format Debate</h3>
+<p>The API specification I created for the project looked like this:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th><strong>Feature</strong></th><th><strong>Description</strong></th><th><strong>Method</strong></th><th><strong>Endpoint</strong></th><th><strong>Parameters</strong></th><th><strong>Response Example</strong></th><th><strong>Notes</strong></th></tr></thead><tbody><tr><td><strong>Get All Word Cloud</strong></td><td>Generates a word cloud based on all news headlines when the user accesses the service.</td><td><code>GET</code></td><td><code>/api/wordcloud</code></td><td>-</td><td><details><summary>Details</summary> <br> <pre><code class="language-json">Success (200 OK): {<br>  “success”: true,<br>  “data”: [<br>    { “word”: “Economy”, “count”: 27 },<br>    { “word”: “Politics”, “count”: 8 }<br>  ]<br>}</code></pre> </details></td><td><strong>[Common Error Responses]</strong><br>400: Bad Request (Invalid parameters)<br>404: Resource Not Found (No data available)<br>500: Internal Server Error</td></tr><tr><td><strong>Get Word Cloud by Category</strong></td><td>Generates a filtered word cloud based on selected media outlet(s) and date range.</td><td><code>GET</code></td><td><code>/api/wordcloud</code></td><td><code>press</code> (string): Media filter (KBS, SBS, MBC, JTBC)<br><code>date</code> (string): Date range (<code>weekly</code>, <code>daily</code>), internally mapped to <code>start_date</code> and <code>end_date</code></td><td><details><summary>Details</summary> <br> <pre><code class="language-json">Success (200 OK): {<br>  “success”: true,<br>  “data”: [<br>    { “word”: “Interest Rate”, “count”: 19 },<br>    { “word”: “Exchange Rate”, “count”: 12 },<br>    { “word”: “Government”, “count”: 10 }<br>  ]<br>}</code></pre> </details></td><td></td></tr><tr><td><strong>Get News List by Keyword</strong></td><td>Returns a list of related news articles when a keyword is clicked in the word cloud.</td><td><code>GET</code></td><td><code>/api/news</code></td><td><code>keyword</code> (string): The selected keyword</td><td><details><summary>Details</summary> <br> <pre><code class="language-json">Success (200 OK): {<br>  “success”: true,<br>  “data”: [<br>    {<br>      “title”: “Interest Rate Hike Shocks the Market”,<br>      “url”: “<a href="https://news.example.com/article/123">https://news.example.com/article/123</a>”,<br>      “press”: “KBS”,<br>      “date”: “2025-10-02”<br>    },<br>    {<br>      “title”: “Bank of Korea Maintains Base Rate”,<br>      “url”: “<a href="https://news.example.com/article/456">https://news.example.com/article/456</a>”,<br>      “press”: “SBS”,<br>      “date”: “2025-10-01”<br>    }<br>  ]<br>}</code></pre> </details></td><td></td></tr><tr><td><strong>Search News Articles</strong></td><td>Retrieves news articles related to the given search query.</td><td><code>GET</code></td><td><code>/api/news</code></td><td><code>q</code> (string): Search keyword</td><td><details><summary>Details</summary> <br> <pre><code class="language-json">Success (200 OK): {<br>  “success”: true,<br>  “data”: [<br>    {<br>      “title”: “Exchange Rate Surpasses 1,400 KRW”,<br>      “url”: “<a href="https://news.example.com/article/789">https://news.example.com/article/789</a>”,<br>      “press”: “MBC”,<br>      “date”: “2025-10-03”<br>    },<br>    {<br>      “title”: “Government Announces Forex Stabilization Measures”,<br>      “url”: “<a href="https://news.example.com/article/999">https://news.example.com/article/999</a>”,<br>      “press”: “JTBC”,<br>      “date”: “2025-10-02”<br>    }<br>  ]<br>}</code></pre> </details></td><td></td></tr></tbody></table>
+<p>I presented it to the backend developer. They provided feedback, and we ended up debating how to encode success and failure in the response.</p>
+<p>I had initially proposed a body based on <code>success: true/false + data or error.message</code>. The backend functions were using something like <code>JsonResponse({'status': 'error', 'message': '...'}, status=500)</code>. At the time, I argued that my structure was “more RESTful” because it aligned better with HTTP status codes, and that boolean checks were faster for the frontend than string comparisons. Looking back, both points were wrong. The HTTP status code (the three-digit code on the response itself) and a custom <code>status</code> field inside the JSON body sit on completely different layers; comparing them for “which is more RESTful” doesn’t actually hold up, and OpenAPI itself defines responses per HTTP status code, not per body field. The boolean-vs-string performance difference was never a meaningful factor in this decision either.</p>
+<p>What we actually needed to agree on was closer to this shape:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#6A737D">// Success</span></span>
+<span class="line"><span style="color:#24292E">{ </span><span style="color:#005CC5">"data"</span><span style="color:#24292E">: {} }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Error</span></span>
+<span class="line"><span style="color:#24292E">{</span></span>
+<span class="line"><span style="color:#005CC5">  "error"</span><span style="color:#24292E">: {</span></span>
+<span class="line"><span style="color:#005CC5">    "code"</span><span style="color:#24292E">: </span><span style="color:#032F62">"INVALID_DATE_RANGE"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#005CC5">    "message"</span><span style="color:#24292E">: </span><span style="color:#032F62">"The requested date range is invalid."</span></span>
+<span class="line"><span style="color:#24292E">  }</span></span>
+<span class="line"><span style="color:#24292E">}</span></span>
+<span class="line"></span></code></pre>
+<p>Success or failure should be read from the HTTP status code first (2xx vs. 4xx/5xx). The <code>code</code> field inside <code>error</code> isn’t there to duplicate that signal. It’s for application-level detail an HTTP status alone can’t express, like telling an invalid date range apart from a missing resource when both might return 400 or 404.</p>
+<p>The comparison I should have made was about things that actually affect a team: whether the shape matches conventions the backend already has elsewhere, how many distinct error cases the client needs to branch on, how consistent client-side handling stays across endpoints, and how maintainable the contract is as a spec. I didn’t raise any of those at the time. I argued from a deadline and a technical framing that didn’t hold up, and the backend developer agreed to match my structure anyway.</p>
+<hr>
+<h3 id="the-ultimate-lesson-negotiation-and-value">The Ultimate Lesson: Negotiation and Value</h3>
+<p>I felt proud at the time that I was able to state my case and negotiate a successful outcome while respecting my teammate’s constraints. In hindsight, though, the technical argument I used to get there wasn’t the right one.</p>
+<p>I realized that regardless of the company or project, <strong>“limited time and resources”</strong> will always exist. The ability to analyze options based on these constraints, justify my choice, and successfully advocate for the most efficient solution will be a vital skill moving forward. My goal has officially shifted from <strong>“a good coder”</strong> to <strong>“a highly collaborative and efficient team member.”</strong></p>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/api/" class="post-tag">#api</a><a href="/tags/project/" class="post-tag">#project</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

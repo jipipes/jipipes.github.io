@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Airflow + PySpark on Docker: Fixing JAVA_GATEWAY_EXITED on ARM64 JAVA_HOME (DE101 Setup Error #2) — The Data Pipe</title><meta name="description" content="Data engineer documenting pipeline builds, debugging sessions, and technical deep-dives."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Debugging</p> <h1 class="post-title">Airflow + PySpark on Docker: Fixing JAVA_GATEWAY_EXITED on ARM64 JAVA_HOME (DE101 Setup Error #2)</h1> <div class="post-meta"> <time datetime="2025-08-28T00:00:00.000Z">August 28, 2025</time> <div class="post-meta-tags"> <a href="/tags/airflow/" class="post-tag">#airflow</a><a href="/tags/pyspark/" class="post-tag">#pyspark</a><a href="/tags/docker/" class="post-tag">#docker</a><a href="/tags/debugging/" class="post-tag">#debugging</a> </div> </div> </header> <div class="post-content">  <h2 id="tldr">TL;DR</h2>
+<ol>
+<li>
+<p>Root cause: path mismatch — Spark expected Java at …/java-17-openjdk-amd64, but Java was installed under ARM64 at …/java-17-openjdk-arm64.</p>
+</li>
+<li>
+<p>Fix: set JAVA_HOME to the actual install path and make sure the scheduler container (LocalExecutor) uses the same custom image that contains Java/Spark.</p>
+</li>
+<li>
+<p>Process: read the full log from the top, extract the one-line root cause, and then validate environment vs. code with preflight checks.</p>
+</li>
+</ol>
+<hr>
+<h3 id="context">Context</h3>
+<p>I re-ran my Airflow DAG to chase a stubborn failure I couldn’t fix last time. My previous mistake? I trusted my guesses more than the logs, skimmed only the bottom part, and missed where the error actually started. This time I forced myself to read top-to-bottom and summarize the error in one line.</p>
+<h3 id="key-errors">Key errors</h3>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">/opt/spark/bin/spark-class</span><span style="color:#24292E">: </span><span style="color:#22863A">line 71</span><span style="color:#24292E">: </span><span style="color:#22863A">/usr/lib/jvm/java-17-openjdk-amd64/bin/java</span><span style="color:#24292E">: </span><span style="color:#032F62">No such file or directory</span></span>
+<span class="line"></span></code></pre>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">pyspark.errors.exceptions.base.PySparkRuntimeError</span><span style="color:#24292E">: [</span><span style="color:#032F62">JAVA_GATEWAY_EXITED</span><span style="color:#24292E">] </span><span style="color:#032F62">Java gateway process exited before sending its port number.</span></span>
+<span class="line"></span></code></pre>
+<p>One-line diagnosis: PySpark couldn’t start because Java wasn’t found at the path Spark expected (wrong JAVA_HOME).</p>
+<hr>
+<h3 id="what-i-checked-and-what-was-wrong">What I checked (and what was wrong)</h3>
+<h4 id="1-env-vs-export-in-dockerfile">1) ENV vs export in Dockerfile</h4>
+<p>I had environment variables like this:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#032F62">ENV JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64'</span></span>
+<span class="line"><span style="color:#032F62">ENV PATH=$PATH:$JAVA_HOME/bin</span></span>
+<span class="line"><span style="color:#032F62">ENV SPARK_HOME='/opt/spark'</span></span>
+<span class="line"><span style="color:#032F62">ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin</span></span>
+<span class="line"></span></code></pre>
+<p>I replaced them with a single explicit PATH to avoid interpolation issues during build:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#032F62">ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64</span></span>
+<span class="line"><span style="color:#032F62">ENV SPARK_HOME=/opt/spark</span></span>
+<span class="line"><span style="color:#032F62">ENV PATH="/usr/lib/jvm/java-17-openjdk-amd64/bin:/opt/spark/bin:/opt/spark/sbin:$PATH"</span></span>
+<span class="line"></span></code></pre>
+<p>| <strong>Why ENV over export</strong>: export only affects the current shell (RUN layer) and evaporates in the next layer. ENV persists in the built image and is available to Airflow tasks.</p>
+<h4 id="2-which-container-actually-runs-tasks">2) Which container actually runs tasks?</h4>
+<p>I’m using LocalExecutor, so the scheduler runs the tasks (not the webserver). That means Java/Spark must exist in the scheduler container, not just the webserver.</p>
+<p>I validated inside the scheduler:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#032F62">docker exec -it &#x3C;scheduler-container> bash</span></span>
+<span class="line"><span style="color:#032F62">whoami</span></span>
+<span class="line"><span style="color:#032F62">echo $JAVA_HOME</span></span>
+<span class="line"><span style="color:#032F62">which java</span></span>
+<span class="line"><span style="color:#032F62">java -version</span></span>
+<span class="line"><span style="color:#032F62">ls -l /usr/lib/jvm</span></span>
+<span class="line"></span></code></pre>
+<p><img src="/assets/img/post-2025-08-28-0.jpg" alt="terminal screenshot"></p>
+<p>Finding: Java was installed at:</p>
+<blockquote>
+<p>/usr/lib/jvm/java-17-openjdk-arm64</p>
+</blockquote>
+<p>…but Spark was trying to use:</p>
+<blockquote>
+<p>/usr/lib/jvm/java-17-openjdk-amd64/bin/java</p>
+</blockquote>
+<p>— classic arch mismatch (ARM64 vs AMD64).</p>
+<hr>
+<h3 id="the-fix">The fix</h3>
+<h4 id="1-point-java_home-to-the-real-path-arm64">1) Point JAVA_HOME to the real path (ARM64)</h4>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#032F62">ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64</span></span>
+<span class="line"><span style="color:#032F62">ENV SPARK_HOME=/opt/spark</span></span>
+<span class="line"><span style="color:#032F62">ENV PATH="/usr/lib/jvm/java-17-openjdk-arm64/bin:/opt/spark/bin:/opt/spark/sbin:$PATH"</span></span>
+<span class="line"></span></code></pre>
+<h4 id="2-ensure-every-airflow-service-uses-the-same-custom-image">2) Ensure every Airflow service uses the same custom image</h4>
+<p>If you build Java/Spark into a custom image, use it for webserver, scheduler, triggerer, and worker (if any).
+Example:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A">x-airflow-image</span><span style="color:#24292E">: </span><span style="color:#D73A49">&#x26;</span><span style="color:#6F42C1">airflow-image</span></span>
+<span class="line"><span style="color:#22863A">  build</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#22863A">    context</span><span style="color:#24292E">: </span><span style="color:#005CC5">.</span></span>
+<span class="line"><span style="color:#22863A">    dockerfile</span><span style="color:#24292E">: </span><span style="color:#032F62">airflow/Dockerfile</span></span>
+<span class="line"><span style="color:#22863A">  image</span><span style="color:#24292E">: </span><span style="color:#032F62">myrepo/airflow-spark:0.1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#22863A">services</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#22863A">  airflow-webserver</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#005CC5">    &#x3C;&#x3C;</span><span style="color:#24292E">: </span><span style="color:#D73A49">*</span><span style="color:#24292E">airflow-image</span></span>
+<span class="line"><span style="color:#6A737D">    # ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#22863A">  airflow-scheduler</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#005CC5">    &#x3C;&#x3C;</span><span style="color:#24292E">: </span><span style="color:#D73A49">*</span><span style="color:#24292E">airflow-image</span></span>
+<span class="line"><span style="color:#6A737D">    # ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#22863A">  airflow-triggerer</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#005CC5">    &#x3C;&#x3C;</span><span style="color:#24292E">: </span><span style="color:#D73A49">*</span><span style="color:#24292E">airflow-image</span></span>
+<span class="line"><span style="color:#6A737D">    # ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  # If using CeleryExecutor</span></span>
+<span class="line"><span style="color:#22863A">  airflow-worker</span><span style="color:#24292E">:</span></span>
+<span class="line"><span style="color:#005CC5">    &#x3C;&#x3C;</span><span style="color:#24292E">: </span><span style="color:#D73A49">*</span><span style="color:#24292E">airflow-image</span></span>
+<span class="line"></span></code></pre>
+<hr>
+<h3 id="result">Result</h3>
+<ul>
+<li>
+<p>The DAG executed successfully after fixing JAVA_HOME to the ARM64 path.</p>
+</li>
+<li>
+<p>Spark jobs started correctly (no more JAVA_GATEWAY_EXITED).</p>
+</li>
+<li>
+<p>I also verified my dbt docs web UI came up as expected.</p>
+</li>
+</ul>
+<hr>
+<h3 id="screenshots">Screenshots</h3>
+<p><img src="/assets/img/post-2025-08-28-1.jpg" alt="Airflow DAG ran sucessfully"></p>
+<p><img src="/assets/img/post-2025-08-28-2.jpg" alt="dbt docs opened sucessfully"></p>
+<hr>
+<h3 id="what-ill-do-differently-next-time">What I’ll do differently next time</h3>
+<ul>
+<li>
+<p>Read full logs in chronological order before touching anything.</p>
+</li>
+<li>
+<p>Reduce the error to one sentence; then pick the right search terms:
+“PySpark JAVA_GATEWAY_EXITED”, “SparkContext getOrCreate Java not found”, “JAVA_HOME mismatch arm64”.</p>
+</li>
+<li>
+<p>Confirm which service actually runs the task (scheduler/worker) and debug there.</p>
+</li>
+<li>
+<p>Add a preflight task for environment checks in Airflow.</p>
+</li>
+<li>
+<p>Keep Dockerfile defensive: explicit ENV, correct JDK (not JRE-only), consistent image across services.</p>
+</li>
+</ul>
+<hr>
+<h3 id="notes--gotchas-arm-macs-mixed-arch">Notes &#x26; gotchas (ARM Macs, mixed arch)</h3>
+<ul>
+<li>
+<p>amd64 vs arm64 matters. On Apple Silicon, your base image and packages may resolve to ARM64. Verify the actual Java install directory under /usr/lib/jvm/.</p>
+</li>
+<li>
+<p>Install JDK (openjdk-17-jdk), not just jre-headless. Spark tooling expects the full JDK.</p>
+</li>
+<li>
+<p>After Dockerfile changes, always do:</p>
+</li>
+</ul>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#032F62">docker-compose down</span></span>
+<span class="line"><span style="color:#032F62">docker-compose build --no-cache</span></span>
+<span class="line"><span style="color:#032F62">docker-compose up -d</span></span>
+<span class="line"></span></code></pre>
+<p>and validate in the scheduler container:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#032F62">docker exec -it &#x3C;scheduler> bash -lc 'echo $JAVA_HOME &#x26;&#x26; java -version &#x26;&#x26; spark-submit --version'</span></span>
+<span class="line"></span></code></pre>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/airflow/" class="post-tag">#airflow</a><a href="/tags/pyspark/" class="post-tag">#pyspark</a><a href="/tags/docker/" class="post-tag">#docker</a><a href="/tags/debugging/" class="post-tag">#debugging</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

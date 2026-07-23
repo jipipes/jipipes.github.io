@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>1st Project Retrospective -Beyond Code — The Data Pipe</title><meta name="description" content="A reflection on my first team project — learning that collaboration matters more than perfect code."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Engineering Retrospectives</p> <h1 class="post-title">1st Project Retrospective -Beyond Code</h1> <div class="post-meta"> <time datetime="2025-10-02T00:00:00.000Z">October 2, 2025</time> <div class="post-meta-tags"> <a href="/tags/project/" class="post-tag">#project</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a> </div> </div> </header> <div class="post-content">  <h3 id="project-1-building-a-visualization-web-service-with-scraped-data">Project 1: Building a Visualization Web Service with Scraped Data</h3>
+<p>When our data engineering bootcamp team was asked to build a visualization web service using crawled data, I chose the least popular role — <strong>the Frontend</strong>.</p>
+<p>It wasn’t a random choice. While setting up my personal blog with GitHub Pages, I realized that even the most sophisticated backend loses meaning if the data isn’t presented through a clear, intuitive interface. Since three more projects awaited with this program, I wanted to broaden my perspective by taking on a different role each time.</p>
+<p>Our project goal was simple but challenging: extract keywords from news headlines or Youtube new title, visualize them in a clickable Word Cloud, and connect each keyword to related news articles or videos.</p>
+<hr>
+<h3 id="the-core-challenge-communication-and-trade-offs">The Core Challenge: Communication and Trade-Offs</h3>
+<p>The hardest part wasn’t the technology — it was <strong>communication</strong>.</p>
+<p>We had intense debates about:</p>
+<ol>
+<li>
+<p>Data Processing Ownership: Should the backend or frontend handle data transformation for the Word Cloud?</p>
+</li>
+<li>
+<p>Historical Data Storage: Should we delete old data or store it for retrieval later?</p>
+</li>
+</ol>
+<p>The first debate was particularly heated. Traditionally, Word Clouds are static images, so preprocessing on the backend is efficient. But our version was dynamic (each keyword was clickable, meaning the data needed to be flexible and filtered client-side.)</p>
+<p>Initially, I agreed that backend-first made sense. But when one teammate argued for frontend-side refinement to improve interactivity, I found that reasoning persuasive.</p>
+<p>Then a backend developer said, “I’ve already written the code for this. Since the frontend is just for styling, why should it handle data processing?” I backed off, agreeing to let the backend handle it. But I didn’t feel good about the exchange.</p>
+<p>That moment taught me something crucial: I need to express my stance clearly and unemotionally. Instead of saying, “Please handle it for now” I should have said:</p>
+<p>| “If the clickable feature is confirmed, I believe it’s more efficient for the frontend to handle this. Can I test it today and get back to you? Otherwise, backend processing makes sense.”</p>
+<p>That phrasing would’ve shown respect for the backend’s work while still asserting my technical perspective. I learned that clarity and tone can coexist.</p>
+<hr>
+<h3 id="the-real-issue-self-censorship-in-collaboration">The Real Issue: Self-Censorship in Collaboration</h3>
+<p>Throughout the project, I realized that <strong>“doing my part well” is not enough in a team.</strong></p>
+<p>When we debated whether to store or delete old data, I stayed silent — not because I didn’t care, but because I didn’t fully understand the constraints faced by other members. I was afraid to ask what I didn’t know.</p>
+<p>It wasn’t a lack of curiosity, but a fear of looking incompetent. That fear silenced me more than any technical barrier.</p>
+<p>The same happened during API discussions. As the frontend developer, I should have clearly defined the data format I needed. But I hesitated, worrying I might seem demanding if I later requested refinements. I tried to finalize everything in one shot what an impossible goal for a first project.</p>
+<p>What I learned is simple but essential:</p>
+<p>| It’s not wrong to not know something. It’s wrong to hide it while pretending you do.</p>
+<p>That realization changed how I view collaboration. I must quickly <strong>voice uncertainty, ask for help, and implement feedback</strong> — not overthink how others might judge me.</p>
+<p>My instructor’s advice echoed in my head:</p>
+<p>| “Don’t compare yourself to others. Differences only reflect the time each person has invested.”</p>
+<p>Given my non-CS background and lack of team project experience, it’s natural to have gaps. What matters is how fast I bridge them by speaking up, not by silently grinding.</p>
+<hr>
+<h3 id="redefining-my-goal">Redefining My Goal</h3>
+<p>Before this project, I thought I wanted to become “someone who codes well.”
+Now I want to become <strong>“someone people want to work with.”</strong></p>
+<p>In our next project, I’ll begin not by diving into code, but by collaboratively designing the overall flow with the team <strong>ensuring we all start on the same page.</strong></p>
+<p>Finally, I want to sincerely thank my teammates for their guidance and patience throughout my very first team project.</p>
+<hr>
+<h3 id="final-reflection">Final Reflection</h3>
+<p>| Technical skills build products. <strong>Honest communication builds teams.</strong></p>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/project/" class="post-tag">#project</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

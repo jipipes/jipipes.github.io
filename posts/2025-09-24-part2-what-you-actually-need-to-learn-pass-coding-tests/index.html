@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Part2: What you actuall need to learn to pass coding tests — The Data Pipe</title><meta name="description" content="Data engineer documenting pipeline builds, debugging sessions, and technical deep-dives."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Learning Notes</p> <h1 class="post-title">Part2: What you actuall need to learn to pass coding tests</h1> <div class="post-meta"> <time datetime="2025-09-24T00:00:00.000Z">September 24, 2025</time> <div class="post-meta-tags"> <a href="/tags/coding-test/" class="post-tag">#coding-test</a><a href="/tags/algorithms/" class="post-tag">#algorithms</a> </div> </div> </header> <div class="post-content">  <p>When it comes to coding tests, <strong>mass practice</strong> is key.</p>
+<p>Think of it this way: buying a book called “Get a Six-Pack in 3 Weeks” and reading it cover to cover won’t make you fit. Similarly, simply reading and understanding a book on algorithm is meaningless.</p>
+<p>You have to <strong>write the code yourself</strong>, implement the logic, and struggle and agonize over the problem.</p>
+<hr>
+<h3 id="building-your-implementaion-skills">Building your implementaion skills</h3>
+<p>To get started, you should focus on these core areas:</p>
+<ol>
+<li>
+<p><strong>Choose a Programming Language</strong>:</p>
+<ul>
+<li>It’s best to master at least one
+<ul>
+<li>such as C/C++, Python, Java or JavaScript.
+<ul>
+<li>Python is often advantageous bacause you can solve many problems with less code.</li>
+<li>However, in competitive programming where execution speed is critical. (C++ is generally preferred)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Understand foundational data structures</strong>:</p>
+<ul>
+<li>Get a solid grasp of concepts like Arrays, Stacks, Queues, Hash, Maps, Trees and Graphs.</li>
+</ul>
+</li>
+<li>
+<p><strong>Master Basic Algorithms &#x26; Complexity</strong>:</p>
+<ul>
+<li>You need a solid understanding of fundamental algorithms and concepts of time and space complexity.</li>
+</ul>
+</li>
+<li>
+<p><strong>Train your problem-solving mindset</strong>:</p>
+<ul>
+<li>The ability to devise a solution for a real-world problem is crucial. While solving many coding test problems can help, it’s not the same as becoming a good developer.</li>
+<li>The goal is to train your mind to identify the properties of a given problem and apply an appropriate algorithm.</li>
+</ul>
+</li>
+<li>
+<p><strong>Practice writing bug-free code under pressure</strong>:</p>
+<ul>
+<li>This skill can only be built through repetition.</li>
+<li>Unlike a typical development environment where you can use debuggers and compilers to break down and test your code, coding tests often lack these tools. Sometimes, it’s faster to rewrite the code from scratch than to debug it.</li>
+</ul>
+</li>
+</ol>
+<p>| 💡<strong>Tip: Try creating your own coding test problems and having others solve them.</strong> It can help you better understand the perspective and intent of a problem setter.</p>
+<hr>
+<h3 id="the-importance-of-data-structures">The Importance of Data Structures</h3>
+<p>A data structure is an Abstract Data Structure (ADS). For example, a heap that satisfies certain conditions is defined as a max heap.</p>
+<p>You need a rich vocabulary of these concepts because they serve as your problem-solving tools. In the real world, developers use fundamental data structures repeatedly to perform their work.</p>
+<hr>
+<h3 id="the-purpose-of-coding-tests-applicants-perspective">The Purpose of Coding Tests (Applicant’s Perspective)</h3>
+<p>A coding test’s purpose is to verify a candidate’s minimum level of problem-solving ability. It’s not about finding a “good developer,” but about confirming you meet a baseline. For those taking the test, data structures should be seen as <strong>a toolbox</strong> of tools you can draw from to solve problems. Just as you need to know which tool to use to change a lightbulb, you need to know which data structure to apply to a problem.</p>
+<p>Even if you don’t use complex data structures daily, you should still understand how they were built, what problems they were designed to solve, and the thought process behind them. You can naturally pick up this kind of experience on the job by solving real-world problems. But you have to pass the coding test first! If you don’t do that, the only way forward is to solve as many problems as possible at your own skill level.</p>
+<p>| 💡<strong>Tip</strong>: If your math skills are weak, it’s a good idea to study certain areas. However, unless you’re working on a field like control systems or AI, I recommend focusing on <strong>Number Theory, Geometry, Linear Algebra, and Discrete Mathematics for coding tests.</strong></p>
+<hr>
+<h3 id="common-pitfalls">Common pitfalls</h3>
+<ul>
+<li>
+<p><strong>Short code isn’t always faster.</strong>
+Don’t assume less code is more efficient. You need to understand how your code works internally.</p>
+</li>
+<li>
+<p><strong>Read the problem carefully, especially the constraints and edge cases.</strong></p>
+</li>
+<li>
+<p>You need to understand how your code actually works under the hood — and beyond that, develop a clear understanding of the nature of the problem you’re solving.</p>
+</li>
+<li>
+<p>After you pass a problem, look at other people’s solutions. This is a great way to learn what makes for good code.</p>
+</li>
+</ul>
+<hr>
+<h3 id="what-should-you-do-when-you-feel-completely-stuck-while-solving-a-problem">What should you do when you feel completely stuck while solving a problem?</h3>
+<p>Ideally, the best approach is to <strong>spend time thinking it through on your own and reaching a conclusion by yourself.</strong>
+This process strengthens your problem-solving muscles and deepens your ability to think critically.</p>
+<p>If you’re still stuck, then steps followed:</p>
+<ol>
+<li>
+<p>Discuss it with someone who has also spent a long time struggling with the same problem</p>
+</li>
+<li>
+<p>If available, ask someone who can guide you through their thought process instead of just giving the answer</p>
+</li>
+<li>
+<p>If there’s no one to discuss it with and no one to ask for help, reading through someone else’s solution can be a last resort</p>
+<ul>
+<li>The key is the recognize what you didn’t know or where you made a mistake and learn from it</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="closing-thoughts">Closing Thoughts</h3>
+<p>Coding tests are not the*ultimate measure of your potential, but they are a <strong>necessary gateway</strong>.</p>
+<p>If you struggle, you’re not alone — but you can get better with practice.</p>
+<p>Track your progress, build a repo, and analyze patterns in problems.</p>
+<p>In future posts, I’ll dive deeper into:</p>
+<ul>
+<li>How to improve problem-solving skills</li>
+<li>What data structures to focus on</li>
+<li>Studying algorithms <strong>without brute memorization</strong></li>
+<li>How to overcome coding test anxiety</li>
+</ul>
+<p>Thanks for reading! Let’s survive the coding test grind together 👊</p>
+<hr>
+<h3 id="tldr">TL;DR</h3>
+<ul>
+<li><strong>Practice is everything</strong></li>
+</ul>
+<p>Reading books isn’t enough; you must write code, implement solutions, and struggle to build your problem-solving skills.</p>
+<ul>
+<li><strong>Master the fundamentals</strong></li>
+</ul>
+<p>Focus on core data structures, basic algorithms, and understanding complexity.
+See data structures as a <em>toolbox.</em></p>
+<ul>
+<li><strong>Embrace the struggle.</strong></li>
+</ul>
+<p>Don’t immediately look up answers. The real training comes from the long, difficult process of solving a problem on your own.</p>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/coding-test/" class="post-tag">#coding-test</a><a href="/tags/algorithms/" class="post-tag">#algorithms</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

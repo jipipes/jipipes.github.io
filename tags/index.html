@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Tags — The Data Pipe</title><meta name="description" content="Data engineer documenting pipeline builds, debugging sessions, and technical deep-dives."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link active">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <div class="page-header"> <h1 class="page-header-title">Tags</h1> <p class="page-header-count">17 tags</p> </div> <div class="tags-cloud"> <a href="/tags/retrospective/" class="tag-pill">
+#retrospective <span style="color: var(--text-muted); font-size: 12px;">(7)</span> </a><a href="/tags/project/" class="tag-pill">
+#project <span style="color: var(--text-muted); font-size: 12px;">(6)</span> </a><a href="/tags/debugging/" class="tag-pill">
+#debugging <span style="color: var(--text-muted); font-size: 12px;">(5)</span> </a><a href="/tags/airflow/" class="tag-pill">
+#airflow <span style="color: var(--text-muted); font-size: 12px;">(4)</span> </a><a href="/tags/coding-test/" class="tag-pill">
+#coding-test <span style="color: var(--text-muted); font-size: 12px;">(3)</span> </a><a href="/tags/soft-skill/" class="tag-pill">
+#soft-skill <span style="color: var(--text-muted); font-size: 12px;">(3)</span> </a><a href="/tags/data-engineering/" class="tag-pill">
+#data-engineering <span style="color: var(--text-muted); font-size: 12px;">(2)</span> </a><a href="/tags/pyspark/" class="tag-pill">
+#pyspark <span style="color: var(--text-muted); font-size: 12px;">(2)</span> </a><a href="/tags/docker/" class="tag-pill">
+#docker <span style="color: var(--text-muted); font-size: 12px;">(2)</span> </a><a href="/tags/cache/" class="tag-pill">
+#cache <span style="color: var(--text-muted); font-size: 12px;">(1)</span> </a><a href="/tags/learning/" class="tag-pill">
+#learning <span style="color: var(--text-muted); font-size: 12px;">(1)</span> </a><a href="/tags/interview/" class="tag-pill">
+#interview <span style="color: var(--text-muted); font-size: 12px;">(1)</span> </a><a href="/tags/algorithms/" class="tag-pill">
+#algorithms <span style="color: var(--text-muted); font-size: 12px;">(1)</span> </a><a href="/tags/api/" class="tag-pill">
+#api <span style="color: var(--text-muted); font-size: 12px;">(1)</span> </a><a href="/tags/snowflake/" class="tag-pill">
+#snowflake <span style="color: var(--text-muted); font-size: 12px;">(1)</span> </a><a href="/tags/aws/" class="tag-pill">
+#aws <span style="color: var(--text-muted); font-size: 12px;">(1)</span> </a><a href="/tags/ec2/" class="tag-pill">
+#ec2 <span style="color: var(--text-muted); font-size: 12px;">(1)</span> </a> </div> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

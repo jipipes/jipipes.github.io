@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Architecture Decisions — The Data Pipe</title><meta name="description" content="Data engineer documenting pipeline builds, debugging sessions, and technical deep-dives."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link">Posts</a> <a href="/categories/" class="nav-link active">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <div class="page-header"> <h1 class="page-header-title">Architecture Decisions</h1> <p class="page-header-count">2 posts</p> </div> <div class="card-grid"> <a href="/posts/2025-11-28-3rd-project-retrospective-1/" class="post-card"> <div class="post-card-body"> <p class="post-card-date">Nov 28, 2025</p> <h2 class="post-card-title">3rd Project Retrospective: A DAG, a Permission Wall, and a Dashboard That Still Didn&#39;t Say Much</h2> <p class="post-card-excerpt">Splitting one DAG into two independent chains, a permission failure that turned out to be about least privilege, and a dashboard that worked without saying anything.</p> <div class="post-card-tags"> <span class="post-tag">#project</span><span class="post-tag">#retrospective</span><span class="post-tag">#airflow</span> </div> </div> </a><a href="/posts/2025-10-07-mastering-the-api-contract/" class="post-card"> <div class="post-card-body"> <p class="post-card-date">Oct 7, 2025</p> <h2 class="post-card-title">Mastering the API Contract: From Frontend Confusion to Collaborative Specification</h2> <p class="post-card-excerpt">A reflection on learning to design and negotiate an API specification, from frontend confusion to true collaboration with backend developers.</p> <div class="post-card-tags"> <span class="post-tag">#api</span><span class="post-tag">#project</span> </div> </div> </a> </div> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

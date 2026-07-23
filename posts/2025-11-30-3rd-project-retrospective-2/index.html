@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>3rd Project Retrospective: When Careful Isn&#39;t the Same as Fast — The Data Pipe</title><meta name="description" content="We spent real time syncing on consistency. It fell apart the moment one person moved solo without saying so. And being technically careful didn't make me useful to the team."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Engineering Retrospectives</p> <h1 class="post-title">3rd Project Retrospective: When Careful Isn&#39;t the Same as Fast</h1> <div class="post-meta"> <time datetime="2025-11-30T00:00:00.000Z">November 30, 2025</time> <div class="post-meta-tags"> <a href="/tags/project/" class="post-tag">#project</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a><a href="/tags/soft-skill/" class="post-tag">#soft-skill</a> </div> </div> </header> <div class="post-content">  <h3 id="the-setup">The Setup</h3>
+<p>Our third project moved us from single-owner datasets to something closer to a real pipeline: collecting, cleaning, and loading the dollar index and WTI crude oil prices, orchestrated with Airflow on Docker. The technical side of this project is covered in the companion post. This one is about a team conflict that turned out to matter more than any of the code.</p>
+<p>Being technically careful doesn’t automatically make you useful to the team. Sometimes it just makes you slow and alone.</p>
+<hr>
+<h3 id="speed-vs-accuracy">Speed vs. Accuracy</h3>
+<p>Early on, we spent real time syncing on stylistic consistency: naming conventions, folder structure, formatting we all agreed to follow. Then our team lead tested a different approach solo, decided afterward that unifying everything wasn’t necessary, and moved on. The rest of us kept holding sync meetings to stay aligned, meetings that stopped producing anything binding once one person had already gone a different direction. We ended up with parallel, disconnected implementations anyway. That was the exact outcome the syncing was supposed to prevent.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>What we did</th><th>What actually happened</th></tr></thead><tbody><tr><td>Agreed on naming and style conventions upfront</td><td>Team lead tested an alternative solo, decided unification wasn’t necessary</td></tr><tr><td>Held recurring sync meetings to stay aligned</td><td>Meetings kept happening after alignment had already broken</td></tr><tr><td>Assumed a careful process would produce consistency</td><td>Ended up with parallel, disconnected implementations anyway</td></tr></tbody></table>
+<p>When this came up with our mentor, the pushback landed on us, not on the lead: what had we actually gotten done? That question is the one that stuck.</p>
+<p><strong>What I took from it:</strong></p>
+<blockquote>
+<p>Transparent, continuous sharing beats quiet, careful work done alone. And sometimes fast validation matters more than polish.</p>
+</blockquote>
+<p>Knowing a project’s real constraints well enough to plan around them, and managing tasks against a deadline instead of an ideal, is its own skill, not something secondary to the technical work. Going forward, my plan is to set deadlines explicitly and sort tasks into two buckets upfront: things that need early validation before anyone builds on top of them, and things that can be safely revised after the fact.</p>
+<hr>
+<h3 id="tldr">TL;DR</h3>
+<ul>
+<li>Spent time syncing on style consistency that fell apart the moment one person moved solo without saying so.</li>
+<li>Feedback from our mentor landed on the team that kept meeting, not the person who skipped the process — a reminder that “we did the responsible thing” isn’t the same as “we produced something.”</li>
+<li>Lesson: transparent, continuous sharing beats quiet careful work done alone, and speed sometimes matters more than polish.</li>
+<li>Next time: set deadlines explicitly, and split tasks into “needs early validation” vs. “safe to revise later” before starting, instead of deciding that mid-project.</li>
+</ul>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/project/" class="post-tag">#project</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a><a href="/tags/soft-skill/" class="post-tag">#soft-skill</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>

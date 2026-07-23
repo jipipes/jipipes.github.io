@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>3rd Project Retrospective: A DAG, a Permission Wall, and a Dashboard That Still Didn&#39;t Say Much — The Data Pipe</title><meta name="description" content="Splitting one DAG into two independent chains, a permission failure that turned out to be about least privilege, and a dashboard that worked without saying anything."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><script>
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script><link rel="stylesheet" href="/_astro/_slug_.B5Zvs6l8.css"></head> <body> <nav class="nav"> <div class="nav-inner"> <a href="/" class="nav-logo">The Data Pipe</a> <div class="nav-right"> <a href="/" class="nav-link">Home</a> <a href="/posts/" class="nav-link active">Posts</a> <a href="/categories/" class="nav-link">Categories</a> <a href="/tags/" class="nav-link">Tags</a> <button id="dark-toggle" class="dark-toggle" aria-label="Toggle dark mode"> <span id="dark-icon">🌙</span> </button> </div> </div> </nav> <script>
+  (function () {
+    const icon = document.getElementById('dark-icon');
+    if (icon) {
+      icon.textContent =
+        document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+    }
+  })();
+</script>  <main class="page-wrapper"> <article> <header class="post-header"> <p class="post-category">Architecture Decisions</p> <h1 class="post-title">3rd Project Retrospective: A DAG, a Permission Wall, and a Dashboard That Still Didn&#39;t Say Much</h1> <div class="post-meta"> <time datetime="2025-11-28T00:00:00.000Z">November 28, 2025</time> <div class="post-meta-tags"> <a href="/tags/project/" class="post-tag">#project</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a><a href="/tags/airflow/" class="post-tag">#airflow</a><a href="/tags/snowflake/" class="post-tag">#snowflake</a> </div> </div> </header> <div class="post-content">  <h3 id="the-setup">The Setup</h3>
+<p>Our third project moved us from single-owner datasets to something closer to a real pipeline: collecting, cleaning, and loading the dollar index (DXY) and WTI crude oil prices hourly, orchestrated with Airflow on Docker. Everyone’s output eventually landed in the same Snowflake instance, and from there into Preset for visualization.</p>
+<p>It was the first project where I had to make engineering decisions instead of executing someone else’s structure. This half of the retrospective is about the technical calls. The next post covers the team dynamics that turned out to matter just as much.</p>
+<hr>
+<h3 id="my-first-modular-dag">My First Modular DAG</h3>
+<p>Up to this point I’d only worked inside DAGs someone else had already structured. This time I wrote one from scratch, running hourly, and the first real decision I made was where to draw the boundaries:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> airflow </span><span style="color:#D73A49">import</span><span style="color:#005CC5"> DAG</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> airflow.operators.python </span><span style="color:#D73A49">import</span><span style="color:#24292E"> PythonOperator</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> datetime </span><span style="color:#D73A49">import</span><span style="color:#24292E"> datetime, timedelta</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> src.dollarindex_wti.extract_dxy_yfinance </span><span style="color:#D73A49">import</span><span style="color:#24292E"> fetch_dxy_yfinance</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> src.dollarindex_wti.extract_wti_yfinance </span><span style="color:#D73A49">import</span><span style="color:#24292E"> fetch_wti_yfinance</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> src.dollarindex_wti.transform_wti_dxy </span><span style="color:#D73A49">import</span><span style="color:#24292E"> transform_dxy, transform_wti</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> src.dollarindex_wti.load_wti_dxy </span><span style="color:#D73A49">import</span><span style="color:#24292E"> upload_raw_to_s3, upload_processed_to_s3</span></span>
+<span class="line"><span style="color:#D73A49">from</span><span style="color:#24292E"> src.dollarindex_wti.load_wti_dxy_to_snowflake </span><span style="color:#D73A49">import</span><span style="color:#24292E"> run_dxy_snowflake_load, run_wti_snowflake_load</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">def</span><span style="color:#6F42C1"> run_dxy_etl</span><span style="color:#24292E">():</span></span>
+<span class="line"><span style="color:#24292E">    df_raw </span><span style="color:#D73A49">=</span><span style="color:#24292E"> fetch_dxy_yfinance()</span></span>
+<span class="line"><span style="color:#24292E">    upload_raw_to_s3(df_raw, </span><span style="color:#032F62">"dxy"</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#24292E">    df_processed </span><span style="color:#D73A49">=</span><span style="color:#24292E"> transform_dxy(df_raw)</span></span>
+<span class="line"><span style="color:#24292E">    upload_processed_to_s3(df_processed, </span><span style="color:#032F62">"dxy"</span><span style="color:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">def</span><span style="color:#6F42C1"> run_wti_etl</span><span style="color:#24292E">():</span></span>
+<span class="line"><span style="color:#24292E">    df_raw </span><span style="color:#D73A49">=</span><span style="color:#24292E"> fetch_wti_yfinance()</span></span>
+<span class="line"><span style="color:#24292E">    upload_raw_to_s3(df_raw, </span><span style="color:#032F62">"wti"</span><span style="color:#24292E">)</span></span>
+<span class="line"><span style="color:#24292E">    df_processed </span><span style="color:#D73A49">=</span><span style="color:#24292E"> transform_wti(df_raw)</span></span>
+<span class="line"><span style="color:#24292E">    upload_processed_to_s3(df_processed, </span><span style="color:#032F62">"wti"</span><span style="color:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">default_args </span><span style="color:#D73A49">=</span><span style="color:#24292E"> {</span><span style="color:#032F62">"owner"</span><span style="color:#24292E">: </span><span style="color:#032F62">"soojin"</span><span style="color:#24292E">, </span><span style="color:#032F62">"retries"</span><span style="color:#24292E">: </span><span style="color:#005CC5">1</span><span style="color:#24292E">, </span><span style="color:#032F62">"retry_delay"</span><span style="color:#24292E">: timedelta(</span><span style="color:#E36209">minutes</span><span style="color:#D73A49">=</span><span style="color:#005CC5">5</span><span style="color:#24292E">)}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49">with</span><span style="color:#24292E"> DAG(</span></span>
+<span class="line"><span style="color:#E36209">    dag_id</span><span style="color:#D73A49">=</span><span style="color:#032F62">"dxy_wti_pipeline"</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#E36209">    default_args</span><span style="color:#D73A49">=</span><span style="color:#24292E">default_args,</span></span>
+<span class="line"><span style="color:#E36209">    schedule_interval</span><span style="color:#D73A49">=</span><span style="color:#032F62">"0 * * * *"</span><span style="color:#24292E">,  </span><span style="color:#6A737D"># hourly</span></span>
+<span class="line"><span style="color:#E36209">    start_date</span><span style="color:#D73A49">=</span><span style="color:#24292E">datetime.now() </span><span style="color:#D73A49">-</span><span style="color:#24292E"> timedelta(</span><span style="color:#E36209">hours</span><span style="color:#D73A49">=</span><span style="color:#005CC5">1</span><span style="color:#24292E">),</span></span>
+<span class="line"><span style="color:#E36209">    catchup</span><span style="color:#D73A49">=</span><span style="color:#005CC5">False</span><span style="color:#24292E">,</span></span>
+<span class="line"><span style="color:#24292E">) </span><span style="color:#D73A49">as</span><span style="color:#24292E"> dag:</span></span>
+<span class="line"><span style="color:#24292E">    dxy_task </span><span style="color:#D73A49">=</span><span style="color:#24292E"> PythonOperator(</span><span style="color:#E36209">task_id</span><span style="color:#D73A49">=</span><span style="color:#032F62">"run_dxy_etl"</span><span style="color:#24292E">, </span><span style="color:#E36209">python_callable</span><span style="color:#D73A49">=</span><span style="color:#24292E">run_dxy_etl)</span></span>
+<span class="line"><span style="color:#24292E">    wti_task </span><span style="color:#D73A49">=</span><span style="color:#24292E"> PythonOperator(</span><span style="color:#E36209">task_id</span><span style="color:#D73A49">=</span><span style="color:#032F62">"run_wti_etl"</span><span style="color:#24292E">, </span><span style="color:#E36209">python_callable</span><span style="color:#D73A49">=</span><span style="color:#24292E">run_wti_etl)</span></span>
+<span class="line"><span style="color:#24292E">    load_dxy_snowflake </span><span style="color:#D73A49">=</span><span style="color:#24292E"> PythonOperator(</span><span style="color:#E36209">task_id</span><span style="color:#D73A49">=</span><span style="color:#032F62">"load_dxy_snowflake"</span><span style="color:#24292E">, </span><span style="color:#E36209">python_callable</span><span style="color:#D73A49">=</span><span style="color:#24292E">run_dxy_snowflake_load)</span></span>
+<span class="line"><span style="color:#24292E">    load_wti_snowflake </span><span style="color:#D73A49">=</span><span style="color:#24292E"> PythonOperator(</span><span style="color:#E36209">task_id</span><span style="color:#D73A49">=</span><span style="color:#032F62">"load_wti_snowflake"</span><span style="color:#24292E">, </span><span style="color:#E36209">python_callable</span><span style="color:#D73A49">=</span><span style="color:#24292E">run_wti_snowflake_load)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">    dxy_task </span><span style="color:#D73A49">>></span><span style="color:#24292E"> load_dxy_snowflake</span></span>
+<span class="line"><span style="color:#24292E">    wti_task </span><span style="color:#D73A49">>></span><span style="color:#24292E"> load_wti_snowflake</span></span>
+<span class="line"></span></code></pre>
+<p>Two decisions drove the structure.</p>
+<p>First, DXY and WTI run as fully independent chains rather than one merged pipeline — a bad fetch on one source shouldn’t stall or corrupt the other, and since they’re unrelated instruments, there’s no reason to force them into the same failure domain.</p>
+<p>Second, extract, transform, and load each live in their own module (<code>extract_dxy_yfinance.py</code>, <code>transform_wti_dxy.py</code>, <code>load_wti_dxy.py</code>, <code>load_wti_dxy_to_snowflake.py</code>), and loading to Snowflake is its own task, separate from the extract-transform-upload step. So a load failure retries just the load instead of re-fetching and re-transforming everything upstream.</p>
+<p>A teammate later told me they used this DAG as a reference for their own, because it was easy to see which source had failed. That claim needs a caveat, though: the graph tells you <em>which source</em> failed, not <em>which stage</em>. Extract, transform, and both S3 uploads are bundled into one Python callable per source, so if something breaks partway through, you still have to open the task log to find out where — the module-level split makes the code readable, but it doesn’t buy you stage-level visibility in the Airflow UI. Those are two different kinds of modularity, and I conflated them at the time.</p>
+<p><strong>Something I’d fix now:</strong> <code>start_date=datetime.now() - timedelta(hours=1)</code> is a known Airflow anti-pattern. Because it’s evaluated every time the DAG file is parsed, the start_date silently drifts on every scheduler heartbeat, which can produce inconsistent scheduling behavior. It ran fine for the length of the project, but a static start_date (<code>datetime(2025, 12, 1)</code>, for instance) is the version I’d write today.</p>
+<hr>
+<h3 id="the-permission-wall">The Permission Wall</h3>
+<p>Every team member loaded their processed data into the same Snowflake instance. Straightforward enough, until I tried pulling one of those datasets into Preset and got nothing but a failed connection.</p>
+<p>I spent the better part of a day tracing it before the pattern pointed at permissions: the role Preset was querying under didn’t have visibility into that schema. My first instinct was to ask for broader access so the problem would just go away. Our team lead pushed back hard on that.</p>
+<p>At the time, that felt like the debugging session getting blocked by a decision that had nothing to do with debugging. In hindsight, the instinct behind the pushback was closer to correct than mine was. The actual fix wasn’t a wider grant — it was a scoped one: read access to the specific schema Preset needed, nothing account-wide. Same result, smaller surface.</p>
+<p><strong>Takeaway:</strong> “It would work if I had more access” is usually true and usually not the question worth asking. The better question is what the smallest grant is that makes it work — and that question takes longer to answer, which is exactly why it’s tempting to skip.</p>
+<hr>
+<h3 id="the-dashboard-that-still-didnt-say-much">The Dashboard That Still Didn’t Say Much</h3>
+<p>The Preset dashboard we shipped functioned. What it was supposed to help someone conclude stayed fuzzy the whole way through — partly because we never nailed the spec down early enough, and partly because real-time metrics and batch-updated metrics sat side by side on the same view, which made any coherent narrative harder to hold together.</p>
+<p>It worked. It didn’t clearly say anything. If dashboard design and insight framing turn out to matter for the direction I want to take, that’s a skill I’ll need to build on purpose — it isn’t a byproduct of building enough pipelines.</p>
+<hr>
+<h3 id="tldr">TL;DR</h3>
+<ul>
+<li>Wrote my first DAG as independent per-source chains (DXY / WTI), each with extract/transform/load split into separate modules and Snowflake loading as its own retryable task.</li>
+<li>Realized after the fact that source-level modularity in the graph isn’t the same as stage-level visibility — a teammate could tell which source failed, not which step, without reading logs.</li>
+<li><code>start_date=datetime.now() - ...</code> is an anti-pattern I’d fix if I rewrote this today; static start dates avoid scheduling drift.</li>
+<li>A Preset-Snowflake permission failure ate most of a day. The instinct to ask for broader access was wrong; the fix was a narrowly scoped grant — least privilege as a real design constraint, not a bureaucratic obstacle.</li>
+<li>Shipped a working dashboard that still didn’t deliver clear insight, partly due to mixing real-time and batch metrics. Insight framing is a skill I need to build deliberately.</li>
+</ul>  </div> <footer class="post-footer"> <div class="post-footer-tags"> <a href="/tags/project/" class="post-tag">#project</a><a href="/tags/retrospective/" class="post-tag">#retrospective</a><a href="/tags/airflow/" class="post-tag">#airflow</a><a href="/tags/snowflake/" class="post-tag">#snowflake</a> </div> <a href="/" class="nav-link" style="font-size: 14px;">← All posts</a> </footer> </article> </main>  <footer class="footer"> <div class="footer-inner"> <span>© 2026 The Data Pipe</span> <div class="footer-links"> <a href="https://github.com/jipipes" class="nav-link" target="_blank" rel="noopener">GitHub</a> <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="nav-link" target="_blank" rel="noopener">LinkedIn</a> </div> </div> </footer> <script>
+      document.getElementById('dark-toggle')?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        const icon = document.getElementById('dark-icon');
+        if (icon) icon.textContent = isDark ? '🌙' : '☀️';
+      });
+    </script> </body> </html>
