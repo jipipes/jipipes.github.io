@@ -2,7 +2,7 @@
 title: "The Data Engineering Toolkit"
 
 categories:
-    - Concepts
+    - Learning Notes
 tags:
     - data-engineering
 

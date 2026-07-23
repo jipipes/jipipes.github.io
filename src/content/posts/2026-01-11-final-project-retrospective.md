@@ -1,7 +1,7 @@
 ---
 title: "Final Project Retrospective: What Good Collaboration Sounds Like"
 date: 2026-01-11
-categories: [Bootcamp]
+categories: [Engineering Retrospectives]
 tags: [project, retrospective, soft-skill]
 description: "The best team I've worked with, the quiet guilt of feeling like I wasn't contributing enough, and what I want to do differently next time."
 ---

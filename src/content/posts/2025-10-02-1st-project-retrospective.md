@@ -1,7 +1,7 @@
 ---
 title: "1st Project Retrospective -Beyond Code"
 categories:
-    - Bootcamp
+    - Engineering Retrospectives
 tags:
     - project
     - retrospective

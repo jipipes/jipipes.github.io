@@ -1,7 +1,7 @@
 ---
 title: "Bootcamp Coding Test Retrospective: Approach, Mistakes, and Next Steps"
 categories:
-    - Bootcamp
+    - Learning Notes
 tags:
     - coding-test
     - retrospective

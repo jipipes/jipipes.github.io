@@ -1,9 +1,9 @@
 ---
 title: "Soft Skill Actions: Working with a 'Efficiency-Driven' Leader."
 categories:
-    - Bootcamp
+    - Learning Notes
 tags:
-    - soft-skills
+    - soft-skill
 date: 2025-09-23
 ---
 

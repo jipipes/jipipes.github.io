@@ -1,7 +1,7 @@
 ---
 title: "3rd Project Retrospective: A DAG, a Permission Wall, and a Dashboard That Still Didn't Say Much"
 date: 2025-11-28
-categories: [Bootcamp]
+categories: [Architecture Decisions]
 tags: [project, retrospective, airflow, snowflake]
 description: "Splitting one DAG into two independent chains, a permission failure that turned out to be about least privilege, and a dashboard that worked without saying anything."
 ---

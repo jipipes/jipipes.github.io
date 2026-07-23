@@ -1,7 +1,7 @@
 ---
 title: "Part1: Why do we take coding tests?"
 categories:
-    - Bootcamp
+    - Learning Notes
 tags:
     - coding-test
 date: 2025-09-23

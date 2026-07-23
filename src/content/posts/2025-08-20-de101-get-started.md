@@ -1,7 +1,7 @@
 ---
 title: "[DE101] get started"
 categories:
-    - Concepts
+    - Learning Notes
 tags:
     - data-engineering
     - learning

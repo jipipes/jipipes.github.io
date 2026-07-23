@@ -1,8 +1,8 @@
 ---
 title: "3rd Project Retrospective: When Careful Isn't the Same as Fast"
 date: 2025-11-30
-categories: [Bootcamp]
-tags: [project, retrospective, soft-skills]
+categories: [Engineering Retrospectives]
+tags: [project, retrospective, soft-skill]
 description: "We spent real time syncing on consistency. It fell apart the moment one person moved solo without saying so. And being technically careful didn't make me useful to the team."
 ---
 

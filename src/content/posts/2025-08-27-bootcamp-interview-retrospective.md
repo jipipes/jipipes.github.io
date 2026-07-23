@@ -1,7 +1,7 @@
 ---
 title: "Bootcamp Interview Retrospective – I Wasn’t as Ready as I Thought"
 categories:
-    - Bootcamp
+    - Learning Notes
 tags:
     - interview
     - retrospective

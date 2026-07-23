@@ -1,7 +1,7 @@
 ---
 title: "Stabilizing Airflow on a t3.medium: From OOM Freezes to Concurrency Tuning"
 date: 2025-12-17
-categories: [Problem Solving]
+categories: [Debugging]
 tags: [airflow, aws, ec2, debugging]
 description: "An EC2 t3.medium kept freezing under Airflow. Kernel logs pointed to the OOM killer, not a hang, and swap memory alone wasn't the fix."
 ---

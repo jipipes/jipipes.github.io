@@ -1,7 +1,7 @@
 ---
 title: "2nd Project Retrospective: When Insight Isn't Enough"
 categories:
-    - Bootcamp
+    - Engineering Retrospectives
 tags:
     - project
     - retrospective

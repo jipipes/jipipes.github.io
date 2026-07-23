@@ -3,7 +3,7 @@ title: "블로그 배포 후 변경 사항 적용 안됨"
 excerpt: 원인이 되는 브라우저 캐시에 대하여
 
 categories:
-    - Problem Solving
+    - Learning Notes
 tags:
     - debugging
     - cache

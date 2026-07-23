@@ -1,7 +1,7 @@
 ---
 title: "Mastering the API Contract: From Frontend Confusion to Collaborative Specification"
 categories:
-    - Bootcamp
+    - Architecture Decisions
 tags:
     - api
     - project
@@ -70,24 +70,33 @@ The API specification I created for the project looked like this:
 | **Get News List by Keyword** | Returns a list of related news articles when a keyword is clicked in the word cloud. | `GET` | `/api/news` | `keyword` (string): The selected keyword | <details><summary>Details</summary> <br> <pre><code class="language-json">Success (200 OK): {<br>  "success": true,<br>  "data": [<br>    {<br>      "title": "Interest Rate Hike Shocks the Market",<br>      "url": "https://news.example.com/article/123",<br>      "press": "KBS",<br>      "date": "2025-10-02"<br>    },<br>    {<br>      "title": "Bank of Korea Maintains Base Rate",<br>      "url": "https://news.example.com/article/456",<br>      "press": "SBS",<br>      "date": "2025-10-01"<br>    }<br>  ]<br>}</code></pre> </details> |  |
 | **Search News Articles** | Retrieves news articles related to the given search query. | `GET` | `/api/news` | `q` (string): Search keyword | <details><summary>Details</summary> <br> <pre><code class="language-json">Success (200 OK): {<br>  "success": true,<br>  "data": [<br>    {<br>      "title": "Exchange Rate Surpasses 1,400 KRW",<br>      "url": "https://news.example.com/article/789",<br>      "press": "MBC",<br>      "date": "2025-10-03"<br>    },<br>    {<br>      "title": "Government Announces Forex Stabilization Measures",<br>      "url": "https://news.example.com/article/999",<br>      "press": "JTBC",<br>      "date": "2025-10-02"<br>    }<br>  ]<br>}</code></pre> </details> |  |
 
-I presented it to the backend developer. They provided feedback, noting a crucial need for consistency in the response format.
-I had initially proposed a structure based on: `success: true/false + data or error.message`
-However, the backend functions were utilizing a format like: `JsonResponse({'status': 'error', 'message': '...'}, status=500)`
-I decided not to simply conform to the backend's existing design. I requested a discussion to compare the pros and cons of both structures, explaining my reasons for favoring mine.
+I presented it to the backend developer. They provided feedback, and we ended up debating how to encode success and failure in the response.
 
-| **Response Structure** | **Pros** | **Cons** |
-|--------------------------|-----------|-----------|
-| **My Way** (`success: true/false`) | **Intuitive and FE-Friendly:** Clients can immediately branch logic with `if (response.success)`. Excellent structural consistency — data on success, error object on failure. | Grouping all errors under `success=false` makes it harder to segment error types without checking a separate code. |
-| **Backend Way** (`status: string`) | **RESTful Alignment:** Better aligns with HTTP status codes and RESTful principles. Logging and debugging are easier as internal status matches server logs. | Less intuitive for the FE (requires an extra string comparison). Higher risk of typos in custom status strings. |
+I had initially proposed a body based on `success: true/false + data or error.message`. The backend functions were using something like `JsonResponse({'status': 'error', 'message': '...'}, status=500)`. At the time, I argued that my structure was "more RESTful" because it aligned better with HTTP status codes, and that boolean checks were faster for the frontend than string comparisons. Looking back, both points were wrong. The HTTP status code — the three-digit code on the response itself — and a custom `status` field inside the JSON body sit on completely different layers; comparing them for "which is more RESTful" doesn't actually hold up, and OpenAPI itself defines responses per HTTP status code, not per body field. The boolean-vs-string performance difference was never a meaningful factor in this decision either.
 
-I argued that the short deadline and the need to avoid the overhead of **string-checking** in the frontend code made my method more time-efficient. Additionally, asking the backend team to specify and implement a detailed `status` enum would take up valuable time, especially during a holiday period.
+What we actually needed to agree on was closer to this shape:
 
-After hearing my reasoning, the backend developer agreed to adjust the response to match the structure I had specified.
+```json
+// Success
+{ "data": {} }
+
+// Error
+{
+  "error": {
+    "code": "INVALID_DATE_RANGE",
+    "message": "The requested date range is invalid."
+  }
+}
+```
+
+Success or failure should be read from the HTTP status code first (2xx vs. 4xx/5xx). The `code` field inside `error` isn't there to duplicate that signal — it's for application-level detail an HTTP status alone can't express, like telling an invalid date range apart from a missing resource when both might return 400 or 404.
+
+The comparison I should have made was about things that actually affect a team: whether the shape matches conventions the backend already has elsewhere, how many distinct error cases the client needs to branch on, how consistent client-side handling stays across endpoints, and how maintainable the contract is as a spec. I didn't raise any of those at the time — I argued from a deadline and a technical framing that didn't hold up, and the backend developer agreed to match my structure anyway.
 
 ---
 
 ### The Ultimate Lesson: Negotiation and Value
 
-I felt proud that I was able to state my case, support it with comparative analysis, and negotiate a successful outcome while respecting my teammate’s constraints.
+I felt proud at the time that I was able to state my case and negotiate a successful outcome while respecting my teammate's constraints — even though, in hindsight, the technical argument I used to get there wasn't the right one.
 
 I realized that regardless of the company or project, **"limited time and resources"** will always exist. The ability to analyze options based on these constraints, justify my choice, and successfully advocate for the most efficient solution will be a vital skill moving forward. My goal has officially shifted from **"a good coder"** to **"a highly collaborative and efficient team member."**

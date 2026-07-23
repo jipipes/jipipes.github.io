@@ -1,7 +1,7 @@
 ---
 title: "Part2: What you actuall need to learn to pass coding tests"
 categories:
-    - Bootcamp
+    - Learning Notes
 tags:
     - coding-test
     - algorithms
