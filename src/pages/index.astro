@@ -6,6 +6,15 @@ import PostCard from '../components/PostCard.astro';
 const allPosts = await getCollection('posts');
 const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const recent = posts.slice(0, 6);
+
+const FEATURED_SLUGS = [
+  '2025-12-17-stabilizing-airflow-on-a-t3-medium',
+  '2025-11-28-3rd-project-retrospective-1',
+  '2026-01-11-final-project-retrospective',
+];
+const featured = FEATURED_SLUGS.map((slug) => allPosts.find((post) => post.slug === slug)).filter(
+  (post) => post !== undefined
+);
 ---
 
 <BaseLayout title="The Data Pipe">
@@ -13,10 +22,22 @@ const recent = posts.slice(0, 6);
     <section class="hero">
       <h1 class="hero-title">Hi, I'm Soojin</h1>
       <p class="hero-subtitle">
-        Data engineer in training. I document what I build, break, and debug —
-        Airflow pipelines, PySpark jobs, and whatever I'm wrestling with this week.
+        I build reliable data pipelines under real-world constraints, with a focus on
+        orchestration, data quality, and reproducible infrastructure.
       </p>
+      <div class="hero-links">
+        <a href="https://github.com/jipipes" class="hero-link" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/soojin-jeong-dev/" class="hero-link" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
     </section>
+
+    <div class="section-header">
+      <h2 class="section-title">Featured</h2>
+    </div>
+
+    <div class="card-grid">
+      {featured.map((post) => <PostCard post={post} />)}
+    </div>
 
     <div class="section-header">
       <h2 class="section-title">Recent posts</h2>

@@ -9,7 +9,7 @@ interface Props {
   ogImage?: string;
 }
 
-const { title, description = 'Data engineer in training — documenting projects, debugging sessions, and technical deep-dives.' } = Astro.props;
+const { title, description = 'Data engineer documenting pipeline builds, debugging sessions, and technical deep-dives.' } = Astro.props;
 const siteTitle = 'The Data Pipe';
 const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
 ---

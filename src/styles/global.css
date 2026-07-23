@@ -170,6 +170,25 @@ img {
   line-height: 1.6;
 }
 
+.hero-links {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.hero-link {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.hero-link:hover {
+  border-color: var(--color-pink);
+  color: var(--color-pink);
+}
+
 /* Section header */
 .section-header {
   display: flex;
@@ -521,6 +540,11 @@ img {
   align-items: center;
   font-size: 13px;
   color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.25rem;
 }
 
 /* Page header (for tags, categories, all posts pages) */
